@@ -1,0 +1,10 @@
+.nav{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background: linear-gradient(to right, #000000 60%, #0082ad 200%);
+    color: #000000;
+    border: 3px solid #01988b;
+    border-radius: 1px;
+    margin-bottom: 10px;
+}
