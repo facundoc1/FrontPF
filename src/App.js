@@ -6,13 +6,15 @@ import Profile from './components/Profile/Profile';
 import NavBar from './components/NavBar/NavBar';
 import Contact from './components/Contact/Contact';
 import Sale from './components/Sale/Sale';
+import ModelCart from './components/Cart/ModelCart';
 
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Route path="*" component={NavBar}/>
+      <NavBar/>
+        {/* <Route path="*" component={NavBar}/> */}
       <Switch>
         <Route exact path="/" component={Home}/>
         <Route path="/login" component={Login}/>

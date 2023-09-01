@@ -2,9 +2,43 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    background: linear-gradient(to right, #000000 60%, #0082ad 200%);
+    align-items: center;
+    background: linear-gradient(to right, #959292 60%, #87a2ab 200%);
     color: #000000;
-    border: 3px solid #01988b;
-    border-radius: 1px;
-    margin-bottom: 10px;
+    padding: 10px 20px;
 }
+.nav a{
+    color: rgb(0, 0, 0);
+}
+
+
+.login img {
+    width: 30px;
+  cursor: pointer;
+  border-radius: 32px;
+}
+.icons {
+    display: flex;
+    align-items: center;
+  }
+.cart {
+    display: inline-block;
+    margin-right: 12px; 
+  }
+  
+  .login {
+    display: inline-block;
+    margin-right: 10px;
+  }
+  .searchBar {
+    flex-grow: 1; 
+    margin: 0 10px; 
+  }
+  .button {
+    text-decoration: none; 
+    margin-right: 15px;   
+  }
+  .sale{
+    margin-left: 15px;
+  }
+
