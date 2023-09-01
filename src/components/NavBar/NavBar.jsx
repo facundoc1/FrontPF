@@ -29,7 +29,7 @@ const NavBar = ({ onSearch }) => {
         <div className={style.logo}>
             <Link to='/' style={{ fontSize: '24px' }}>RGTech</Link>
         </div>
-    <div className={style.sale}>
+    <div className={style.buttonSale}>
         <button className={style.sale}>
             <Link to="/Sale">Sale</Link>
         </button>
@@ -38,10 +38,12 @@ const NavBar = ({ onSearch }) => {
             <SearchBar onSearch={onSearch} />
     </div>
     <div className={style.button}>
-        <button className={style.button}>
+        <button className={style.AddProduct}>
             <Link to="/addProduct">Add Product</Link>
         </button>
-        <button className={style.button}>
+        </div>
+        <div className={style.button}>
+        <button className={style.Contact}>
             <Link to="/Contact">Contact</Link>
         </button>
     </div>

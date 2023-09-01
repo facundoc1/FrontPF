@@ -7,8 +7,9 @@
     color: #000000;
     padding: 10px 20px;
 }
-.nav a{
+.logo a{
     color: rgb(0, 0, 0);
+    text-decoration:none
 }
 
 
@@ -34,11 +35,45 @@
     flex-grow: 1; 
     margin: 0 10px; 
   }
-  .button {
-    text-decoration: none; 
-    margin-right: 15px;   
+
+  .button{
+    margin-right: 15px;
+   
   }
-  .sale{
-    margin-left: 15px;
+  
+  .AddProduct a,
+.Contact a,
+.sale a{
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    border: 2px solid #000000;
+    color: #000000; 
+    background-color: transparent; 
+    padding: 6px 18px;
+    font-size: 16px;
+    text-decoration:none;
+    
   }
+
+  .AddProduct:hover a,
+  .Contact:hover a,
+  .sale:hover a{
+    background-color: #000000;
+    color: rgb(255, 255, 255);
+    
+  }
+/* .AddProduct,
+.Contact,
+.sale{
+  text-decoration:none;
+  border: none; 
+  outline: none; */
+
+  .buttonSale {
+  margin-left: 30px;
+  }
+
+  
+
+
 
