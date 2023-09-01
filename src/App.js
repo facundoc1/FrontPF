@@ -7,6 +7,7 @@ import NavBar from './components/NavBar/NavBar';
 import Contact from './components/Contact/Contact';
 import Sale from './components/Sale/Sale';
 import ModelCart from './components/Cart/ModelCart';
+import AddProduct from './components/AddProduct/AddProduct';
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
         <Route path="/profile" component={Profile}/>
         <Route path="/contact" component={Contact}/>
         <Route path="/sale" component={Sale}/>
+        <Route path="/addProduct" component={AddProduct}/>
       </Switch>
       </BrowserRouter>
 
