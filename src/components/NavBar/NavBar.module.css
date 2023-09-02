@@ -41,33 +41,29 @@
    
   }
   
-  .AddProduct a,
-.Contact a,
-.sale a{
-    -webkit-transition-duration: 0.4s;
-    transition-duration: 0.4s;
-    border: 2px solid #000000;
-    color: #000000; 
+  .AddProduct ,
+.Contact ,
+.sale {
+    color: #797979; 
     background-color: transparent; 
-    padding: 6px 18px;
-    font-size: 16px;
-    text-decoration:none;
-    
+    padding: 0px 14px;
+    font: 17px Poppins, sans serif;
+    cursor: pointer;
+    border: 0;
+    box-shadow: none;
+    text-decoration: none;
+    box-sizing: border-box;
+    position: relative;
   }
 
-  .AddProduct:hover a,
+  /* .AddProduct:hover a,
   .Contact:hover a,
   .sale:hover a{
     background-color: #000000;
-    color: rgb(255, 255, 255);
+    color: rgb(255, 255, 255); */
     
-  }
-/* .AddProduct,
-.Contact,
-.sale{
-  text-decoration:none;
-  border: none; 
-  outline: none; */
+  
+
 
   .buttonSale {
   margin-left: 30px;

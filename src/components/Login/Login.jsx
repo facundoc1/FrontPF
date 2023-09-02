@@ -1,48 +1,89 @@
 import React, { useState } from 'react';
-import style from "./Login.module.css"
+import './Login.module.css'; // Importa tus estilos CSS
+import styles from './Login.module.css';
 
-const Login = () => {
+function Login() {
+  const [isSignIn, setIsSignIn] = useState(true);
+
+  const toggleSignInUp = () => {
+    setIsSignIn(!isSignIn);
+  };
+  const redirectToGoogleSignIn = () => {
+    const redirectUrl = 'TU_URL_DE_REDIRECCION';
+    const clientId = 'TU_CLIENT_ID';
+    const googleSignInUrl = `https://accounts.google.com/o/oauth2/auth?redirect_uri=${redirectUrl}&response_type=code&client_id=${clientId}&scope=openid%20profile%20email`;
+    window.location.href = googleSignInUrl;
+  };
+  const redirectToFacebookSignIn = () => {
+    const redirectUrl = 'TU_URL_DE_REDIRECCION';
+    const appId = 'TU_APP_ID';
+    const facebookSignInUrl = `https://www.facebook.com/v11.0/dialog/oauth?client_id=${appId}&redirect_uri=${redirectUrl}&scope=email`;
+    window.location.href = facebookSignInUrl;
+  };
+
   return (
-  <div>Login</div>
-  )
-//     const [isSignUp, setIsSignUp] = useState(false);
-    
-//     const toggleSignUp = () => {
-//         setIsSignUp(!isSignUp);
-//       };
-//   return (
-//     <div className={style.container} id="container">
-//       <div className={`form-container ${isSignUp ? 'sign-up-container' : ''}`}>
-//         <form action="#">
-//           <h1>{isSignUp ? 'Create Account' : 'Sign In'}</h1>
-//           <div className="social-container">
-//             <button  className="social"><i className="fab fa-facebook-f"></i></button>
-//             <button  className="social"><i className="fab fa-google-plus-g"></i></button>
-//             <button  className="social"><i className="fab fa-linkedin-in"></i></button>
-//           </div>
-//           <span>Or use your email for {isSignUp ? 'registration' : 'sign in'}</span>
-//           <input type="text" placeholder="Name" />
-//           <input type="text" placeholder="Email" />
-//           <input type="text" placeholder="Password" />
-//           <button>{isSignUp ? 'Sign Up' : 'Sign In'}</button>
-//         </form>
-//       </div>
-//       <div className={`overlay-container ${isSignUp ? 'right-panel-active' : ''}`}>
-//         <div className="overlay">
-//           <div className="overlay-panel overlay-left">
-//             <h1>Welcome Back!</h1>
-//             <p>To keep connected with us please login with your personal info</p>
-//             <button className="ghost" onClick={toggleSignUp}>Sign In</button>
-//           </div>
-//           <div className="overlay-panel overlay-right">
-//             <h1>Hello, Friend!</h1>
-//             <p>Enter your personal details and start your journey with us</p>
-//             <button className="ghost" onClick={toggleSignUp}>Sign Up</button>
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   )
+    <div className={`login-container ${isSignIn ? '' : 'active'}`}>
+      <div className="left-panel">
+        {isSignIn ? (
+          // Estado "Sign In"
+          <div className="panel-content">
+            <h2>Sign In</h2>
+            <div className="button-container">
+              <button className={`google ${styles.google}`} onClick={redirectToGoogleSignIn}>
+                <span>Login with Google</span>
+              </button>
+              <button className={`facebook ${styles.facebook}`} onClick={redirectToFacebookSignIn}>
+                <span>Login with Facebook</span>
+              </button>
+            </div>
+            <p>Or use your account</p>
+            <input type="email" placeholder="Email" />
+            <input type="password" placeholder="Password" />
+            <button className={styles.Sign}>Sign In</button>
+          </div>
+        ) : (
+          // Estado "Sign Up"
+          <div className="panel-content">
+            <h2>Create Account</h2>
+            <div className="button-container">
+              <button className={`google ${styles.google}`} onClick={redirectToGoogleSignIn}>
+                <span>Login with Google</span>
+              </button>
+              <button className={`facebook ${styles.facebook}`} onClick={redirectToFacebookSignIn}>
+                <span>Login with Facebook</span>
+              </button>
+            </div>
+            <p>Or use your email for registration</p>
+            <input type="text" placeholder="Name" />
+            <input type="email" placeholder="Email" />
+            <input type="password" placeholder="Password" />
+            <button className={styles.Sign}>Sign Up</button>
+          </div>
+        )}
+      </div>
+      <div className="right-panel">
+        {isSignIn ? (
+          // Estado "Sign In"
+          <div className="panel-content">
+            <h2>Hello, Friend!</h2>
+            <p>Enter your personal details and start your journey with us</p>
+            <button className={styles.Sign} onClick={toggleSignInUp}>
+              Sign Up
+            </button>
+          </div>
+        ) : (
+          // Estado "Sign Up"
+          <div className="panel-content">
+            <h2>Welcome back!</h2>
+            <p>To keep connected with us please login with your personal info</p>
+            <button className={styles.Sign} onClick={toggleSignInUp}>
+              Sign In
+            </button>
+          </div>
+        )}
+      </div>
+    </div>
+  );
 }
 
-export default Login
+export default Login;

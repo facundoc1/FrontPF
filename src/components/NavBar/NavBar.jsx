@@ -27,7 +27,7 @@ const NavBar = ({ onSearch }) => {
   return (
     <div className={style.nav}>
         <div className={style.logo}>
-            <Link to='/' style={{ fontSize: '24px' }}>RGTech</Link>
+            <Link to='/' style={{ fontSize: '24px' }}>GRTECH</Link>
         </div>
     <div className={style.buttonSale}>
         <button className={style.sale}>
