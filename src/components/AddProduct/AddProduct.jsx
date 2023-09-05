@@ -1,11 +1,8 @@
-import React from 'react';
-import style from "./AddProduct.module.css"
+import React from 'react'
 
 const AddProduct = () => {
   return (
-    <div className={style.master}>
     <div>AddProduct</div>
-    </div>
   )
 }
 

@@ -1,11 +1,8 @@
-import React from 'react';
-import style from "./Home.module.css"
+import React from 'react'
 
 const Home = () => {
   return (
-  <div className={style.master}>
     <div>Home</div>
-    </div>
   )
 }
 
