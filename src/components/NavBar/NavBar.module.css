@@ -38,39 +38,88 @@
 
   .button{
     margin-right: 15px;
-   
+    padding: 13px 20px;
+  }
+  .AddProduct,
+  .Contact,
+  .sale {
+    font: 17px Poppins, sans serif;
+    background-color: transparent;
+    color: #FFFFFF;
+    text-transform: none;
+    text-decoration:none;
+    cursor: pointer;
+    border: 0;
+    
   }
   
   .AddProduct a,
 .Contact a,
-.sale a{
-    -webkit-transition-duration: 0.4s;
-    transition-duration: 0.4s;
-    border: 2px solid #000000;
-    color: #000000; 
-    background-color: transparent; 
-    padding: 6px 18px;
-    font-size: 16px;
-    text-decoration:none;
-    
+.sale a {color: rgb(0, 0, 0);
+  text-decoration:none;
+  cursor: pointer;
+  font: 17px Poppins, sans-serif;
+  background-color: transparent;
+   
+  }
+  .sale:focus
+{
+    outline: none;
+}
+.sale:active
+{
+    transform: scale(0.95);
+}
+  .buttonsCart {
+    display: flex;
+    justify-content: space-between; /* Separar los botones al máximo */
+    align-items: center; /* Centrar verticalmente */
+    background-color: #64eeea;
+    width: 300px; /* Ancho deseado para el contenedor */
   }
 
-  .AddProduct:hover a,
-  .Contact:hover a,
-  .sale:hover a{
-    background-color: #000000;
-    color: rgb(255, 255, 255);
-    
+  
+  .modal{
+    display: flex;
+    justify-content: space-between; /* Separar los botones al máximo */
+    align-items: center; /* Centrar verticalmente */
+    background-color: #64eeea;
+    padding: 10px; /* Añadir un poco de espacio alrededor de los botones */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 300px; /* Ancho deseado para el contenedor */
+    margin: 0 auto;
   }
-/* .AddProduct,
-.Contact,
-.sale{
-  text-decoration:none;
-  border: none; 
-  outline: none; */
+  .buy,
+.close {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.buy:hover {
+    background-color: #0056b3;
+}
+
+.close:hover {
+    background-color: #e74c3c;
+}
+
 
   .buttonSale {
   margin-left: 30px;
+  padding: 0px 14px;
+  }
+  .products{
+    align-items: center;
+    width: 280px;
+    margin-left: 0;
   }
 
   

@@ -1,0 +1,30 @@
+.master,
+.master .container {
+    background: rgb(183, 181, 181);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+  }
+  .container {
+    background-color: #fff;
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+    width: 768px;
+    max-width: 100%;
+    min-width: 480px;
+    margin: 0 auto;
+}
+.button{
+    border-radius: 15px;
+    border: 1px solid #ff3613;
+    background-color: #ff2600;
+    color: #FFFFFF;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 7px 14px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    margin-top: 15px;
+}

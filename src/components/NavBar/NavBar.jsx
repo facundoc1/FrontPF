@@ -7,6 +7,7 @@ import cart from "../Assets/cart.svg";
 
 
 
+
 const NavBar = ({ onSearch }) => {
     const [isModalOpen, setModalOpen] = useState(false);
     const [cartItems, setCartItems] = useState([]);
@@ -27,7 +28,7 @@ const NavBar = ({ onSearch }) => {
   return (
     <div className={style.nav}>
         <div className={style.logo}>
-            <Link to='/' style={{ fontSize: '24px' }}>RGTech</Link>
+            <Link to='/' style={{ fontSize: '24px' }}>GRTECH</Link>
         </div>
     <div className={style.buttonSale}>
         <button className={style.sale}>
@@ -58,15 +59,36 @@ const NavBar = ({ onSearch }) => {
     </div>
     </div>
     {isModalOpen && (
-        <div className="modal">
-          <div className="modal-content">
+        <div className={style.modal}>
+          <div className={style.modalContent}>
+             {/* <h1>{product.name}</h1><br/>  */}
             <h2>Shopping Cart</h2>
             <ul>
               {cartItems.map((item, index) => (
                 <li key={index}>{item.name}</li>
-              ))}
+                ))}
+    <div className={style.products}>
+        <table id="tabla-productos">
+          <thead >
+          <tr>
+      <th>Name: Placa de video Rtx 2060 ASUS</th>
+    </tr>
+    <tr>
+      <th>Price: 100usd</th>
+    </tr>
+    
+    <tr>
+      <th>Total Price: 100usd</th>
+    </tr>
+          </thead>
+        </table>
+        <button id="delete-button">Eliminar</button>
+    </div>
             </ul>
-            <button onClick={closeModal}>Close Cart</button>
+            <div className={style.buttonsCart}>
+            <button className={style.buy}>Buy</button>
+            <button className={style.close} onClick={closeModal}>Close</button>
+            </div>
           </div>
         </div>
       )}

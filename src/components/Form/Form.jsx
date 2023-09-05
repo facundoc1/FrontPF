@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { Link } from 'react-router-dom';
+import style from "./Form.module.css";
 
 function RegistrationForm() {
   const [formData, setFormData] = useState({
@@ -9,8 +10,15 @@ function RegistrationForm() {
     password: '',
     confirmPassword: '',
     email: '',
-    birthdate: null,
+    birthdate: "",
   });
+
+  const redirectToGoogleSignIn = () => {
+    const redirectUrl = 'TU_URL_DE_REDIRECCION';
+    const clientId = 'TU_CLIENT_ID';
+    const googleSignInUrl = `https://accounts.google.com/o/oauth2/auth?redirect_uri=${redirectUrl}&response_type=code&client_id=${clientId}&scope=openid%20profile%20email`;
+    window.location.href = googleSignInUrl;
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -53,74 +61,89 @@ function RegistrationForm() {
   };
 
   return (
+    <div className={style.master}>
+    <div className={style.container}>
     <div>
-      <h2>Registro de Usuario</h2>
+      <h1>Create Account</h1>
+      <button className={`google ${style.google}`} onClick={redirectToGoogleSignIn}>
+        <span>Login with Google</span>
+      </button>
       <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="username">Nombre de Usuario:</label>
+          <label htmlFor="username">Username:</label>
           <input
             type="text"
             id="username"
             name="username"
+            placeholder='Name'
             value={formData.username}
             onChange={handleChange}
             required
           />
         </div>
         <div>
-          <label htmlFor="password">Contraseña:</label>
+          <label htmlFor="password">Password:</label>
           <input
             type="password"
             id="password"
             name="password"
+            placeholder='Create a Password'
             value={formData.password}
             onChange={handleChange}
             required
           />
         </div>
         <div>
-          <label htmlFor="confirmPassword">Confirmar Contraseña:</label>
+          <label htmlFor="confirmPassword">Confirm Password:</label>
           <input
             type="password"
             id="confirmPassword"
             name="confirmPassword"
+            placeholder='Confirm Password'
             value={formData.confirmPassword}
             onChange={handleChange}
             required
           />
         </div>
         <div>
-          <label htmlFor="email">Correo Electrónico:</label>
+          <label htmlFor="email">Email:</label>
           <input
             type="email"
             id="email"
             name="email"
+            placeholder='Your Email'
             value={formData.email}
             onChange={handleChange}
             required
           />
         </div>
         <div>
-          <label htmlFor="birthdate">Fecha de Nacimiento:</label>
-          <DatePicker
-            selected={formData.birthdate}
+          <label htmlFor="birthdate">Birthdate:</label>
+          <input
+            type="date"
+            name='birthdate'
+            value={formData.birthdate}
             onChange={handleDateChange}
             dateFormat="dd/MM/yyyy"
             isClearable
-            placeholderText="Seleccionar fecha"
             required
           />
         </div>
         <div>
-          <button type="submit">Registrarse</button>
+          <button className={style.Sign} type="submit">Sign up</button>
         </div>
       </form>
+      <br></br>
       <div>
-        <Link to="/login">Iniciar Sesión</Link>
+        <h3>If you already have an account</h3>
       </div>
+      <div>
+      <button className={style.SignIn}><Link to="/login">Sign in</Link></button>
+      </div>
+    </div>
+    </div>
     </div>
   );
 }
 
 export default RegistrationForm;
-

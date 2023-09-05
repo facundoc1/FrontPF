@@ -7,7 +7,7 @@ import Profile from './components/Profile/Profile';
 import NavBar from './components/NavBar/NavBar';
 import Contact from './components/Contact/Contact';
 import Sale from './components/Sale/Sale';
-import ModelCart from './components/Cart/ModelCart';
+
 import AddProduct from './components/AddProduct/AddProduct';
 
 function App() {
