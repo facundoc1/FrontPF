@@ -1,10 +1,64 @@
 import React, { useState } from 'react';
-import style from "./Login.module.css"
+import { Link } from 'react-router-dom'; // Importa Link desde 'react-router-dom'
+/* import style from "./Login.module.css"; */
 
-const Login = () => {
+function Login() {
+  const [formData, setFormData] = useState({
+    username: '',
+    password: '',
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const { username, password } = formData;
+    setFormData({ username: '', password: '' });
+  };
+
   return (
-  <div>Login</div>
-  )
+    <div>
+      <h2>Iniciar Sesión</h2>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label htmlFor="username">Nombre de Usuario:</label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            value={formData.username}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="password">Contraseña:</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div>
+          <button type="submit">Iniciar Sesión</button>
+        </div>
+      </form>
+      <div>
+        {/* Agrega un enlace a la página de registro */}
+        <Link to="/Registro">Registro</Link>
+      </div>
+    </div>
+  );
+}
+
+export default Login;
+
 //     const [isSignUp, setIsSignUp] = useState(false);
     
 //     const toggleSignUp = () => {
@@ -42,7 +96,4 @@ const Login = () => {
 //         </div>
 //       </div>
 //     </div>
-//   )
-}
-
-export default Login
+//   
