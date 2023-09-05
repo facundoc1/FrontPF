@@ -5,7 +5,7 @@
     align-items: center;
     background: linear-gradient(to right, #959292 60%, #87a2ab 200%);
     color: #000000;
-    padding: 10px 20px;
+    padding: 15px 30px;
 }
 .logo a{
     color: rgb(0, 0, 0);
@@ -62,14 +62,7 @@
   background-color: transparent;
    
   }
-  .sale:focus
-{
-    outline: none;
-}
-.sale:active
-{
-    transform: scale(0.95);
-}
+
   .buttonsCart {
     display: flex;
     justify-content: space-between; /* Separar los botones al máximo */
@@ -113,7 +106,7 @@
 
 
   .buttonSale {
-  margin-left: 30px;
+  margin-left: 40px;
   padding: 0px 14px;
   }
   .products{
