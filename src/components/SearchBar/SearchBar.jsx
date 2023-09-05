@@ -24,8 +24,10 @@ const SearchBar = ({ onSearch }) => {
         backgroundPosition: 'right center',
         paddingRight: '40px',
         fontSize: "14px",
-        height: "26px",
-        width: '350px' }}
+        height: "12px",
+        width: '350px',
+        marginTop:"0",
+        marginBottom:"0"}}
       />
       
     </div>
