@@ -9,6 +9,7 @@ import Contact from './components/Contact/Contact';
 import Sale from './components/Sale/Sale';
 
 import AddProduct from './components/AddProduct/AddProduct';
+import Footer from './components/Footer/Footer';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="/sale" component={Sale} />
           <Route path="/addProduct" component={AddProduct} />
         </Switch>
+        <Footer />
       </BrowserRouter>
     </div>
   );
