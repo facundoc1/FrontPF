@@ -1,119 +1,120 @@
 .nav{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    background: linear-gradient(to right, #959292 60%, #87a2ab 200%);
-    color: #000000;
-    padding: 15px 30px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(to right, #959292 60%, #87a2ab 200%);
+  color: #000000;
+  padding: 15px 30px;
 }
 .logo a{
-    color: rgb(0, 0, 0);
-    text-decoration:none
+  color: rgb(0, 0, 0);
+  text-decoration:none
 }
 
 
 .login img {
-    width: 30px;
-  cursor: pointer;
-  border-radius: 32px;
+  width: 30px;
+cursor: pointer;
+border-radius: 32px;
 }
 .icons {
-    display: flex;
-    align-items: center;
-  }
+  display: flex;
+  align-items: center;
+}
 .cart {
-    display: inline-block;
-    margin-right: 12px; 
-  }
-  
-  .login {
-    display: inline-block;
-    margin-right: 10px;
-  }
-  .searchBar {
-    flex-grow: 1; 
-    margin: 0 10px; 
-  }
+  display: inline-block;
+  margin-right: 12px; 
+}
 
-  .button{
-    margin-right: 15px;
-    padding: 13px 20px;
-  }
-  .AddProduct,
-  .Contact,
-  .sale {
-    font: 17px Poppins, sans serif;
-    background-color: transparent;
-    color: #FFFFFF;
-    text-transform: none;
-    text-decoration:none;
-    cursor: pointer;
-    border: 0;
-    
-  }
-  
-  .AddProduct a,
-.Contact a,
-.sale a {color: rgb(0, 0, 0);
+.login {
+  display: inline-block;
+  margin-right: 10px;
+}
+.searchBar {
+  flex-grow: 1; 
+  margin: 0 10px; 
+}
+
+.button{
+  margin-right: 15px;
+  padding: 13px 20px;
+}
+.AddProduct,
+.Contact,
+.sale {
+  font: 17px Poppins, sans serif;
+  background-color: transparent;
+  color: #FFFFFF;
+  text-transform: none;
   text-decoration:none;
   cursor: pointer;
-  font: 17px Poppins, sans-serif;
-  background-color: transparent;
-   
-  }
-
-  .buttonsCart {
-    display: flex;
-    justify-content: space-between; /* Separar los botones al máximo */
-    align-items: center; /* Centrar verticalmente */
-    background-color: #64eeea;
-    width: 300px; /* Ancho deseado para el contenedor */
-  }
-
+  border: 0;
   
-  .modal{
-    display: flex;
-    justify-content: space-between; /* Separar los botones al máximo */
-    align-items: center; /* Centrar verticalmente */
-    background-color: #64eeea;
-    padding: 10px; /* Añadir un poco de espacio alrededor de los botones */
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    width: 300px; /* Ancho deseado para el contenedor */
-    margin: 0 auto;
-  }
-  .buy,
+}
+
+.AddProduct a,
+.Contact a,
+.sale a {color: rgb(0, 0, 0);
+text-decoration:none;
+cursor: pointer;
+font: 17px Poppins, sans-serif;
+background-color: transparent;
+ 
+}
+
+.buttonsCart {
+  display: flex;
+  justify-content: space-between; /* Separar los botones al máximo */
+  align-items: center; /* Centrar verticalmente */
+  background-color: #64eeea;
+  width: 300px; /* Ancho deseado para el contenedor */
+}
+
+
+.modal{
+  display: flex;
+  justify-content: space-between; /* Separar los botones al máximo */
+  align-items: center; /* Centrar verticalmente */
+  background-color: #64eeea;
+  padding: 10px; /* Añadir un poco de espacio alrededor de los botones */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 300px; /* Ancho deseado para el contenedor */
+  margin: 0 auto;
+}
+.buy,
 .close {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 14px;
-    transition: background-color 0.3s ease;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
 }
 
 .buy:hover {
-    background-color: #0056b3;
+  background-color: #0056b3;
 }
 
 .close:hover {
-    background-color: #e74c3c;
+  background-color: #e74c3c;
 }
 
 
-  .buttonSale {
-  margin-left: 40px;
-  padding: 0px 14px;
-  }
-  .products{
-    align-items: center;
-    width: 280px;
-    margin-left: 0;
-  }
+.buttonSale {
+margin-left: 40px;
+padding: 0px 14px;
+}
+.products{
+  align-items: center;
+  width: 280px;
+  margin-left: 0;
+}
+
 
   
 
