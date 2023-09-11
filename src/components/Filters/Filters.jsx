@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { axiosCategories, setFilterCategory } from '../../Redux/actions/actions';
 import './Filters.module.css'; // Importa el archivo de estilos CSS
@@ -8,14 +8,25 @@ const Filters = () => {
   const categories = useSelector((state) => state.categories.categories);
   const filterCategory = useSelector((state) => state.categories.filterCategory);
 
-  const handleCategoryChange = (e) => {
-    const selectedCategory = e.target.value;
-    dispatch(setFilterCategory(selectedCategory));
-  };
+  // Estado local para realizar un seguimiento de la categoría actualmente seleccionada
+  const [selectedCategory, setSelectedCategory] = useState(null);
 
   useEffect(() => {
     dispatch(axiosCategories());
   }, [dispatch]);
+
+  const handleCategoryChange = (e, category) => {
+    const selectedCategoryId = e.target.value;
+    dispatch(setFilterCategory(selectedCategoryId));
+
+    // Si la categoría seleccionada coincide con la categoría actualmente seleccionada, la deseleccionamos
+    if (selectedCategory === category.id) {
+      setSelectedCategory(null);
+    } else {
+      // De lo contrario, establecemos la categoría seleccionada en el estado local
+      setSelectedCategory(category.id);
+    }
+  };
 
   return (
     <div className="filters-container">
@@ -25,17 +36,27 @@ const Filters = () => {
           categories.map((category) => (
             <div key={category.id} className="category-item">
               <label className="category-label">
-                {category.name}
+                {category.name} {/* Mover el texto de la categoría aquí */}
+                <input
+                  type="radio"
+                  id={`category-${category.id}`}
+                  name="category"
+                  value={category.id}
+                  checked={filterCategory === category.id}
+                  onChange={(e) => handleCategoryChange(e, category)}
+                  className="category-checkbox"
+                />
               </label>
-              <input
-                type="checkbox"
-                id={`category-${category.id}`}
-                name={`category-${category.id}`}
-                value={category.id}
-                checked={filterCategory === category.id}
-                onChange={handleCategoryChange}
-                className="category-checkbox"
-              />
+              {/* Mostrar subcategorías solo si la categoría coincide con la categoría seleccionada */}
+              {selectedCategory === category.id && category.subcategories && (
+                <div className="subcategory-list">
+                  {category.subcategories.map((subcategory) => (
+                    <div key={subcategory.id} className="subcategory-item">
+                      {subcategory.name}
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           ))
         ) : (
@@ -48,43 +69,6 @@ const Filters = () => {
 
 export default Filters;
 
-const CategoryList = () => {
-  const dispatch = useDispatch();
-  const categories = useSelector((state) => state.categories.categories);
 
-  useEffect(() => {
-    dispatch(axiosCategories());
-  }, [dispatch]);
 
-  const renderSubcategories = (subcategories) => {
-    if (!subcategories || subcategories.length === 0) {
-      return null;
-    }
 
-    return (
-      <ul>
-        {subcategories.map((subcategory) => (
-          <li key={subcategory.id}>{subcategory.name}</li>
-        ))}
-      </ul>
-    );
-  };
-
-  return (
-    <div>
-      <h3>List of Categories</h3>
-      {categories && categories.length > 0 ? (
-        <ul>
-          {categories.map((category) => (
-            <li key={category.id}>
-              {category.name}
-              {renderSubcategories(category.subcategories)}
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>No hay categorías disponibles.</p>
-      )}
-    </div>
-  );
-};

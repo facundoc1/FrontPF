@@ -69,14 +69,15 @@ export function loginRequest() {
         const response = await axios.get('/category');
         const categories = response.data;
   
-        const flattenedCategories = flattenCategories(categories);
+        // Solo incluir las categorías principales, no las subcategorías
+        const mainCategories = categories.filter((category) => !category.parentId);
   
-        dispatch(setCategories(flattenedCategories));
+        dispatch(setCategories(mainCategories));
       } catch (error) {
+        // Manejar errores aquí
       }
     };
   };
-
   const flattenCategories = (categories) => {
     const flattened = [];
   
