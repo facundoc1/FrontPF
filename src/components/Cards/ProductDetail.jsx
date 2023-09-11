@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
@@ -21,9 +21,9 @@ function ProductDetail({ products }) {
     <div>
       <h2>{product.name}</h2>
       <Carousel showArrows={true} showStatus={false} showThumbs={true}>
-        {product.images.map((image, index) => (
+        {product.images.map((index) => (
           <div key={index}>
-            <img src={image} alt={`Producto ${index}`} />
+            <img src={product.cloudinaryImageUrl} alt={`Producto ${index}`} />
           </div>
         ))}
       </Carousel>
