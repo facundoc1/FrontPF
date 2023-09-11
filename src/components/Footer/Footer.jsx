@@ -12,7 +12,7 @@ const Footer = () => {
           <h3>GRTech:</h3>
           <p>Thank you for choosing GRTech. Stay up to date with our latest products and promotions by following us on social media.</p>
           <div className={style.media}>
-            <a href="https://www.instagram.com/GRTech/" target="_blank" rel="noopener noreferrer">
+            <a href="https://www.instagram.com/grtech23/" target="_blank" rel="noopener noreferrer">
               <img src={IgLogo} alt="Instagram" />
             </a>
           </div>
