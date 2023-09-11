@@ -12,6 +12,9 @@ export const SET_FILTER_CATEGORY = 'SET_FILTER_CATEGORY';
 export const GET_PRODUCT_DETAILS_REQUEST = 'GET_PRODUCT_DETAILS_REQUEST';
 export const GET_PRODUCT_DETAILS_SUCCESS = 'GET_PRODUCT_DETAILS_SUCCESS';
 export const GET_PRODUCT_DETAILS_FAILURE = 'GET_PRODUCT_DETAILS_FAILURE';
+export const PRODUCTS_REQUEST = 'PRODUCTS_REQUEST';
+export const PRODUCTS_SUCCESS = 'PRODUCTS_SUCCESS';
+export const PRODUCTS_FAILURE = 'PRODUCTS_FAILURE';
 
 
 
@@ -69,12 +72,11 @@ export function loginRequest() {
         const response = await axios.get('/category');
         const categories = response.data;
   
-        // Solo incluir las categorías principales, no las subcategorías
         const mainCategories = categories.filter((category) => !category.parentId);
   
         dispatch(setCategories(mainCategories));
       } catch (error) {
-        // Manejar errores aquí
+
       }
     };
   };
@@ -126,7 +128,7 @@ export function loginRequest() {
   
       try {
         const response = await axios.get(`/products/${productId}`);
-        console.log('Respuesta de la solicitud HTTP:', response); // Agregamos un console.log para verificar la respuesta
+        console.log('Respuesta de la solicitud HTTP:', response); 
         const product = response.data;
   
         dispatch(getProductDetailsSuccess(product));
@@ -135,3 +137,31 @@ export function loginRequest() {
       }
     };
   };
+
+  export const productsRequest = () => ({
+    type: PRODUCTS_REQUEST,
+  });
+  
+  export const productsSuccess = (products) => ({
+    type: PRODUCTS_SUCCESS,
+    payload: products,
+  });
+  
+  export const productsFailure = (error) => ({
+    type: PRODUCTS_FAILURE,
+    payload: error,
+  });
+
+  export const axiosProducts = () => {
+    return async (dispatch) => {
+      dispatch(productsRequest());
+      try {
+        const response = await axios.get('/products');
+        dispatch(productsSuccess(response.data));
+      } catch (error) {
+        dispatch(productsFailure(error));
+      }
+    };
+  };
+
+  

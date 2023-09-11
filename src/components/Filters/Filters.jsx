@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { axiosCategories, setFilterCategory } from '../../Redux/actions/actions';
-import './Filters.module.css'; // Importa el archivo de estilos CSS
+import './Filters.module.css'; 
 
 const Filters = () => {
   const dispatch = useDispatch();
@@ -19,11 +19,9 @@ const Filters = () => {
     const selectedCategoryId = e.target.value;
     dispatch(setFilterCategory(selectedCategoryId));
 
-    // Si la categoría seleccionada coincide con la categoría actualmente seleccionada, la deseleccionamos
     if (selectedCategory === category.id) {
       setSelectedCategory(null);
     } else {
-      // De lo contrario, establecemos la categoría seleccionada en el estado local
       setSelectedCategory(category.id);
     }
   };
@@ -36,7 +34,7 @@ const Filters = () => {
           categories.map((category) => (
             <div key={category.id} className="category-item">
               <label className="category-label">
-                {category.name} {/* Mover el texto de la categoría aquí */}
+                {category.name} 
                 <input
                   type="radio"
                   id={`category-${category.id}`}
@@ -47,7 +45,6 @@ const Filters = () => {
                   className="category-checkbox"
                 />
               </label>
-              {/* Mostrar subcategorías solo si la categoría coincide con la categoría seleccionada */}
               {selectedCategory === category.id && category.subcategories && (
                 <div className="subcategory-list">
                   {category.subcategories.map((subcategory) => (

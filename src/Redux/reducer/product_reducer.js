@@ -1,4 +1,4 @@
-import { ADD_PRODUCT, REMOVE_PRODUCT, FILTER_PRODUCTS } from '../actions/productActions';
+import { ADD_PRODUCT, REMOVE_PRODUCT, FILTER_PRODUCTS, PRODUCTS_REQUEST, PRODUCTS_SUCCESS, PRODUCTS_FAILURE  } from '../actions/actions';
 
 const initialState = {
   products: [],
@@ -25,6 +25,25 @@ function productReducer(state = initialState, action) {
       return {
         ...state,
         filteredProducts,
+      };
+    case PRODUCTS_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case PRODUCTS_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        products: action.payload,
+        error: null,
+      };
+    case PRODUCTS_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        products: [],
+        error: action.payload,
       };
     default:
       return state;

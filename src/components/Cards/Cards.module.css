@@ -1,0 +1,41 @@
+.productList {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; 
+    justify-content: flex-start; 
+  }
+  
+
+  .product-card {
+    border: 1px solid #ccc;
+    padding: 20px;
+    flex: 1; 
+    box-sizing: border-box;
+  }
+  
+  .product-card img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .product-card h3 {
+    font-size: 18px;
+    margin: 10px 0;
+  }
+  
+  .product-card p {
+    margin: 10px 0;
+  }
+  
+  .product-card .price {
+    font-weight: bold;
+    color: #e91e63; 
+  }
+  
+  .product-card a {
+    display: block;
+    margin-top: 10px;
+    text-decoration: none;
+    color: #2196f3; 
+  }
+  
