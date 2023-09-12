@@ -1,31 +1,37 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import { Link, useHistory } from 'react-router-dom';
-import style from "./Login.module.css";
+import { useDispatch } from 'react-redux'; // Importa useDispatch para despachar acciones
+import { loginUser } from '../../Redux/actions/actions'; // Importa la acción loginUser
+import style from './Login.module.css';
 
 function Login() {
   const [formData, setFormData] = useState({
-    username: '',
+    email: '', // Cambia 'username' a 'email'
     password: '',
   });
 
   const history = useHistory();
+  const dispatch = useDispatch(); // Obtiene la función dispatch
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleLocalLogin = async () => {
+  const handleLocalLogin = async (e) => {
+    e.preventDefault();
     try {
-      const response = await fetch('/api/local-login', {
-        method: 'POST',
+      console.log('Datos de formData:', formData);
+      const response = await axios.post('/users/login', formData, {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
       });
-
+  
       if (response.status === 200) {
+        const userData = response.data; 
+        dispatch(loginUser(userData));
         history.push('/home');
       } else {
       }
@@ -35,7 +41,7 @@ function Login() {
   };
 
   const handleGoogleLogin = () => {
-    const redirectUrl = 'http://localhost:3000';
+    const redirectUrl = 'http://localhost:300';
     const clientId = '8005685121-lc08e1doe31irr0ut4slblqt03qskv6s.apps.googleusercontent.com';
     const googleSignInUrl = `https://accounts.google.com/o/oauth2/auth?redirect_uri=${redirectUrl}&response_type=code&client_id=${clientId}&scope=openid%20profile%20email`;
     window.location.href = googleSignInUrl;
@@ -51,13 +57,13 @@ function Login() {
           </button>
           <form onSubmit={handleLocalLogin}>
             <div>
-              <label htmlFor="username">Username:</label>
+              <label htmlFor="email">Email:</label> {/* Cambia el label y el name del input */}
               <input
                 type="text"
-                id="username"
-                name="username"
-                placeholder='Name'
-                value={formData.username}
+                id="email"
+                name="email" // Cambia 'username' a 'email'
+                placeholder='Email' // Cambia 'Name' a 'Email'
+                value={formData.email} // Cambia formData.username a formData.email
                 onChange={handleChange}
                 required
               />
