@@ -1,0 +1,41 @@
+.modal {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #80bdd7;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    margin: 0 auto;
+    position: absolute;
+    top: 23%;
+    left: 60%;
+    transform: translate(-50%, -50%);
+  }
+  .buy,
+.close {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+.buy:hover {
+    background-color: #0056b3;
+  }
+  
+  .close:hover {
+    background-color: #e74c3c;
+  }
+  .buttonsCart {
+    display: flex;
+    justify-content: space-between; /* Separar los botones al máximo */
+    align-items: center; /* Centrar verticalmente */
+    background-color: #64c5ee;
+    width: 300px; /* Ancho deseado para el contenedor */
+  }
