@@ -1,10 +1,37 @@
 import React from 'react';
 import style from "./Cart.module.css";
 import { useState } from 'react';
+import {useSelector} from "react-redux"; 
 
 const ModelCart = ({ items, onClose }) => {
   const cartItems = items; 
   const [isModalOpen, setModalOpen] = useState(false);
+  const [setQuantity] = useState();
+  const name = useSelector((state) => state.name);
+	const quantity = useSelector((state) => state.quantity);
+	const price = useSelector((state) => state.price);
+	const image = useSelector((state) => state.image);
+
+
+  const totalPrice = useSelector((state)=> (cartItems?.reduce(((acc, item)=>{
+    return acc + Number(item[1]) *Number(item[2]);}),0).toFixed())
+    );
+
+  const increaseQuantity = () => {
+    setQuantity(quantity + 1);
+  };
+  
+  const decreaseQuantity = () => {
+    if (quantity > 1) {
+      setQuantity(quantity - 1);
+    }
+  };
+  
+  const calculateTotalPrice = () => {
+    return price * quantity;
+  };
+  
+
 
   const openModal = () => {
     setModalOpen(true);
@@ -29,7 +56,16 @@ const ModelCart = ({ items, onClose }) => {
             <li key={index}>{item.name}</li>
           ))}
           <div className={style.products}>
-            <h1>placa de video</h1>
+            Product:{name},
+            {image},
+            Price: ${price},
+            Quantity: {quantity},
+            <button onClick={increaseQuantity}>+</button><br />
+            <button onClick={decreaseQuantity}>-</button>
+            <hr />
+            <p>{totalPrice(price)}</p>
+
+
             <button id="delete-button">Eliminar</button>
           </div>
         </ul>

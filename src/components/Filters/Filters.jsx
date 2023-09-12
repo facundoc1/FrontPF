@@ -31,7 +31,7 @@ const Filters = () => {
   return (
     <div className="filters-container">
       <div className="category-list">
-        <h3>Categorías</h3>
+        <h3>Categories</h3>
         {categories ? (
           categories.map((category) => (
             <div key={category.id} className="category-item">
