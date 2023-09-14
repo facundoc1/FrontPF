@@ -8,7 +8,11 @@ function ProductList() {
   const allProducts = useSelector((state) => state.products.products);
 
   // Verifica si hay productos filtrados; si no, muestra todos los productos
-  const productsToDisplay = filteredProducts.length ? filteredProducts : allProducts;
+  const productsToDisplay = filteredProducts && filteredProducts.length ? filteredProducts : allProducts && allProducts.length ? allProducts : [];
+
+  if (productsToDisplay.length === 0) {
+    return <p>No products to display.</p>;
+  }
 
   return (
     <div className={styles.productList}>
@@ -20,3 +24,4 @@ function ProductList() {
 }
 
 export default ProductList;
+

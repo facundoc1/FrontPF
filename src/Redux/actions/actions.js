@@ -124,7 +124,6 @@ export function loginRequest() {
   };
 
   export const setFilteredProducts = (filteredProducts) => {
-    // console.log('setFilteredProducts:', filteredProducts); // Agrega este console.log
     return {
       type: 'SET_FILTERED_PRODUCTS',
       payload: filteredProducts,

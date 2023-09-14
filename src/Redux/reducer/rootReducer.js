@@ -1,4 +1,4 @@
-// rootReducer.js
+
 
 import { combineReducers } from 'redux';
 import categoriesReducer from './categories_reducer';
@@ -6,6 +6,7 @@ import detailReducer from './detail_reducer';
 import productReducer from './product_reducer';
 import registerReducer from './register_reducer';
 import loginReducer from './login_reducer';
+import createProductReducer from './create_product_reducer'
 
 
 const rootReducer = combineReducers({
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
   products: productReducer,
   register: registerReducer,
   login: loginReducer,
+  createProduct: createProductReducer
 });
 
 export default rootReducer;
