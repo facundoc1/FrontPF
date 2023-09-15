@@ -1,9 +1,19 @@
 .master,
-.master .container {
+.master {
     background: rgb(183, 181, 181);
     background-repeat: no-repeat;
     background-size: cover;
-    height: 100vh;
+    min-height: 100vh; /* Cambiado a min-height */
+  }
+  
+  .container {
+    background-color: rgb(183, 181, 181);
+    border-radius: 10px;
+    box-shadow: 0 14px 2px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+    position: relative;
+    overflow: hidden;
+    max-width: 100%; /* Cambiado a max-width */
+    margin: 20px auto; /* Agregado margen superior e inferior */
   }
 .Sign{
     border-radius: 20px;

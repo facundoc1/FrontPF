@@ -1,29 +1,38 @@
-export const SET_PRODUCT_DETAIL = 'SET_PRODUCT_DETAIL';
-export const CLEAR_PRODUCT_DETAIL = 'CLEAR_PRODUCT_DETAIL';
-
+import {
+  GET_PRODUCT_DETAILS_REQUEST,
+  GET_PRODUCT_DETAILS_SUCCESS,
+  GET_PRODUCT_DETAILS_FAILURE,
+} from '../actions/actions'; 
 
 const initialState = {
-  product: null, 
-  loading: false, 
-  error: null, 
+  product: null,
+  loading: false,
+  error: null,
 };
 
 const detailReducer = (state = initialState, action) => {
   switch (action.type) {
-    case SET_PRODUCT_DETAIL:
+    case GET_PRODUCT_DETAILS_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
+    case GET_PRODUCT_DETAILS_SUCCESS:
       return {
         ...state,
         product: action.payload.product,
         loading: false,
         error: null,
       };
-    case CLEAR_PRODUCT_DETAIL:
+    case GET_PRODUCT_DETAILS_FAILURE:
       return {
         ...state,
-        product: null,
         loading: false,
-        error: null,
+        error: action.payload.error,
       };
+    // Puedes agregar más casos de acciones aquí si es necesario
+
     default:
       return state;
   }
