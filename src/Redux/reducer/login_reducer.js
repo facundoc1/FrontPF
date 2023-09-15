@@ -1,33 +1,29 @@
-import { LOGIN_USER, LOGOUT_USER, SET_AUTHENTICATED_USER } from '../actions/actions';
+import { LOGIN_SUCCESS, LOGOUT } from '../actions/actions_login';
 
 const initialState = {
   isAuthenticated: false,
   user: null,
+  accessToken: null,
+  refreshToken: null,
 };
 
 const loginReducer = (state = initialState, action) => {
   switch (action.type) {
-    case LOGIN_USER:
+    case LOGIN_SUCCESS:
       return {
         ...state,
         isAuthenticated: true,
-        user: action.payload,
+        user: action.payload.user,
+        accessToken: action.payload.accessToken,
+        refreshToken: action.payload.refreshToken,
       };
-    case LOGOUT_USER:
-      return {
-        ...state,
-        isAuthenticated: false,
-        user: null,
-      };
-    case SET_AUTHENTICATED_USER:
-      return {
-        ...state,
-        isAuthenticated: true,
-        user: action.payload,
-      };
+    case LOGOUT:
+      return initialState;
     default:
       return state;
   }
 };
 
+
 export default loginReducer;
+

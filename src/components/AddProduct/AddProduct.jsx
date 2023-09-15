@@ -15,8 +15,10 @@ const CreateProduct = () => {
     subcategoryIds: [],
   });
 
+  const user = useSelector((state) => state.login.user);
+
   const loading = useSelector((state) => state.createProduct.loading);
-  const error = useSelector((state) => state.createProduct.error); 
+  const error = useSelector((state) => state.createProduct.error);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -28,7 +30,13 @@ const CreateProduct = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(createProduct(productData));
+
+    if (user && user.isSeller) {
+      dispatch(createProduct(productData));
+    } else {
+      
+      console.error('El usuario no tiene permiso para publicar productos');
+    }
   };
 
   return (

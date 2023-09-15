@@ -1,8 +1,5 @@
 import axios from "axios"
 
-export const LOGIN_REQUEST = 'LOGIN_REQUEST';
-export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
-export const LOGIN_FAILURE = 'LOGIN_FAILURE';
 export const LOGOUT = 'LOGOUT';
 export const ADD_PRODUCT = 'ADD_PRODUCT';
 export const REMOVE_PRODUCT = 'REMOVE_PRODUCT';
@@ -20,29 +17,10 @@ export const PRODUCTS_FAILURE = 'PRODUCTS_FAILURE';
 export const REGISTER_REQUEST = 'REGISTER_REQUEST';
 export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
 export const REGISTER_FAILURE = 'REGISTER_FAILURE';
-export const LOGIN_USER = 'LOGIN_USER';
-export const LOGOUT_USER = 'LOGOUT_USER';
 export const SET_AUTHENTICATED_USER = 'SET_AUTHENTICATED_USER';
 
 
 
-export function loginRequest() {
-    return { type: LOGIN_REQUEST };
-  }
-  
-  export function loginSuccess(user) {
-    return {
-      type: LOGIN_SUCCESS,
-      payload: { user },
-    };
-  }
-  
-  export function loginFailure(error) {
-    return {
-      type: LOGIN_FAILURE,
-      payload: { error },
-    };
-  }
 
   export function logout() {
     return { type: LOGOUT };
@@ -205,15 +183,6 @@ export function loginRequest() {
     };
   };
 
-  export const loginUser = (userData) => ({
-    type: LOGIN_USER,
-    payload: userData,
-  });
-  
-
-  export const logoutUser = () => ({
-    type: LOGOUT_USER,
-  });
   
   export const setAuthenticatedUser = (userData) => ({
     type: SET_AUTHENTICATED_USER,

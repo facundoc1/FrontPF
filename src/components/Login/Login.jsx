@@ -2,13 +2,14 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Link, useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux'; // Importa useDispatch para despachar acciones
-import { loginUser } from '../../Redux/actions/actions'; // Importa la acción loginUser
+import { loginSuccess } from '../../Redux/actions/actions_login'; // Importa la acción loginUser
 import style from './Login.module.css';
 
 function Login() {
   const [formData, setFormData] = useState({
-    email: '', // Cambia 'username' a 'email'
+    email: '',
     password: '',
+    rememberMe: false, // Agrega rememberMe al estado
   });
 
   const history = useHistory();
@@ -22,18 +23,18 @@ function Login() {
   const handleLocalLogin = async (e) => {
     e.preventDefault();
     try {
-      console.log('Datos de formData:', formData);
       const response = await axios.post('/users/login', formData, {
         headers: {
           'Content-Type': 'application/json',
         },
       });
-  
+
       if (response.status === 200) {
-        const userData = response.data; 
-        dispatch(loginUser(userData));
-        history.push('/home');
+        const userData = response.data;
+        dispatch(loginSuccess(userData));
+        history.push('/');
       } else {
+        // Manejar otros casos, como errores de inicio de sesión
       }
     } catch (error) {
       console.error('Error al iniciar sesión localmente:', error);
@@ -57,13 +58,13 @@ function Login() {
           </button>
           <form onSubmit={handleLocalLogin}>
             <div>
-              <label htmlFor="email">Email:</label> {/* Cambia el label y el name del input */}
+              <label htmlFor="email">Email:</label>
               <input
                 type="text"
                 id="email"
-                name="email" // Cambia 'username' a 'email'
-                placeholder='Email' // Cambia 'Name' a 'Email'
-                value={formData.email} // Cambia formData.username a formData.email
+                name="email"
+                placeholder='Email'
+                value={formData.email}
                 onChange={handleChange}
                 required
               />
@@ -79,6 +80,16 @@ function Login() {
                 onChange={handleChange}
                 required
               />
+            </div>
+            <div>
+              <input
+                type="checkbox"
+                id="rememberMe"
+                name="rememberMe"
+                checked={formData.rememberMe}
+                onChange={(e) => setFormData({ ...formData, rememberMe: e.target.checked })}
+              />
+              <label htmlFor="rememberMe">Recordarme</label>
             </div>
             <div>
               <button className={style.Sign} type="submit">Sign in</button>
