@@ -7,7 +7,7 @@ import productReducer from './product_reducer';
 import registerReducer from './register_reducer';
 import loginReducer from './login_reducer';
 import createProductReducer from './create_product_reducer'
-
+import reviewReducer from './review_reducer'
 
 const rootReducer = combineReducers({
   categories: categoriesReducer,
@@ -15,7 +15,8 @@ const rootReducer = combineReducers({
   products: productReducer,
   register: registerReducer,
   login: loginReducer,
-  createProduct: createProductReducer
+  createProduct: createProductReducer,
+  review: reviewReducer
 });
 
 export default rootReducer;

@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { axiosGetProductDetail } from '../../Redux/actions/actions'; // Asegúrate de importar la acción correspondiente
+import { axiosGetProductDetail } from '../../Redux/actions/actions'; 
+import Review from './Reviews/Reviews'
 
 const ProductDetail = () => {
   const { id } = useParams(); 
@@ -44,6 +45,7 @@ const ProductDetail = () => {
               <li key={subcategory.id}>{subcategory.name}</li>
             ))}
           </ul>
+          <Review />
         </div>
       ) : (
         <p>No se encontró el producto.</p>

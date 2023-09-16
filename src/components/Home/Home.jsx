@@ -22,8 +22,7 @@ function Home() {
       </div>
       <div className={style.content}>
         <h2>Productos</h2>
-        {/* Mostrar la lista de productos utilizando el componente ProductList */}
-        <ProductList products={products} />
+        <ProductList />
       </div>
     </div>
   );
