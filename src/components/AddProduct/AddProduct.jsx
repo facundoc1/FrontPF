@@ -28,13 +28,29 @@ const CreateProduct = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleImageChange = (e) => {
+    const imageFile = e.target.files[0];
+    setProductData({
+      ...productData,
+      image: imageFile,
+    });
+  };
+
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (user && user.isSeller) {
-      dispatch(createProduct(productData));
-    } else {
+      const formData = new FormData();
+      formData.append('title', productData.title);
+      formData.append('summary', productData.summary);
+      formData.append('price', productData.price);
+      formData.append('stock', productData.stock);
+      formData.append('image', productData.image);
+
       
+      dispatch(createProduct(formData));
+    } else {
       console.error('El usuario no tiene permiso para publicar productos');
     }
   };
@@ -61,9 +77,9 @@ const CreateProduct = () => {
           <input type="number" name="stock" value={productData.stock} onChange={handleChange} required />
         </div>
         <div>
-        <label>Imagen (URL):</label>
-       <input type="text" name="externalImageLink" value={productData.externalImageLink} onChange={handleChange} />
-       </div>
+        <label>Imagen del Producto:</label>
+        <input type="file" accept="image/*" onChange={handleImageChange} />
+        </div>
        <div>
        <label>Categoría ID:</label>
        <input type="text" name="categoryIds" value={productData.categoryIds} onChange={handleChange} />
