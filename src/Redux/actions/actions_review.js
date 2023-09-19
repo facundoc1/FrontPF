@@ -24,6 +24,7 @@ export const loadReviews = (productId) => {
   export const createReview = (productId, comment, rating, userId, headers) => {
     return async (dispatch) => {
       try {
+        console.log('esta en la info:', productId, comment, rating, userId, headers)
         const response = await axios.post(`/reviews/${productId}`, { comment, rating, userId }, { headers });
         dispatch({
           type: CREATE_REVIEW,

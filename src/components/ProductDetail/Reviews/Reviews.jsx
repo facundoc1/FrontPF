@@ -26,7 +26,7 @@ const Review = () => {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json',
       };
-
+      console.log(headers)
       const reviewData = {
         userId,
         comment,
