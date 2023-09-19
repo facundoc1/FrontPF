@@ -4,6 +4,8 @@ import style from "./NavBar.module.css"
 import SearchBar from "../SearchBar/SearchBar";
 import avatar from "../Assets/avatar.png";
 import cart from "../Assets/cart.svg";
+import ModelCart from '../Cart/ModelCart';
+
 
 
 
@@ -11,9 +13,9 @@ const NavBar = ({ onSearch }) => {
     const [isModalOpen, setModalOpen] = useState(false);
     const [cartItems, setCartItems] = useState([]);
 
-    const openModal = () => {
-        setModalOpen(true);
-      };
+    const toggleModal = () => {
+      setModalOpen(!isModalOpen);
+    };
     
       const closeModal = () => {
         setModalOpen(false);
@@ -27,7 +29,7 @@ const NavBar = ({ onSearch }) => {
   return (
     <div className={style.nav}>
         <div className={style.logo}>
-            <Link to='/' style={{ fontSize: '24px' }}>GRTECH</Link>
+            <Link to='/' style={{ font: '28px Poppins, sans-serif' }}>GRTECH</Link>
         </div>
     <div className={style.buttonSale}>
         <button className={style.sale}>
@@ -48,7 +50,7 @@ const NavBar = ({ onSearch }) => {
         </button>
     </div>
     <div className={style.icons}>
-        <div className={style.cart} onClick={openModal}>
+        <div className={style.cart} onClick={toggleModal}>
           <img src={cart} alt="carrito" />
     </div>
         <div className={style.login}>
@@ -58,16 +60,8 @@ const NavBar = ({ onSearch }) => {
     </div>
     </div>
     {isModalOpen && (
-        <div className="modal">
-          <div className="modal-content">
-            <h2>Shopping Cart</h2>
-            <ul>
-              {cartItems.map((item, index) => (
-                <li key={index}>{item.name}</li>
-              ))}
-            </ul>
-            <button onClick={closeModal}>Close Cart</button>
-          </div>
+        <div className={style.modal}>
+         <ModelCart />
         </div>
       )}
     </div>

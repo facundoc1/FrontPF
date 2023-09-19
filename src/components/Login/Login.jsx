@@ -1,86 +1,108 @@
 import React, { useState } from 'react';
-import './Login.module.css'; // Importa tus estilos CSS
-import styles from './Login.module.css';
+import axios from 'axios';
+import { Link, useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux'; // Importa useDispatch para despachar acciones
+import { loginSuccess } from '../../Redux/actions/actions_login'; // Importa la acción loginUser
+import style from './Login.module.css';
 
 function Login() {
-  const [isSignIn, setIsSignIn] = useState(true);
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+    rememberMe: false, // Agrega rememberMe al estado
+  });
 
-  const toggleSignInUp = () => {
-    setIsSignIn(!isSignIn);
+  const history = useHistory();
+  const dispatch = useDispatch(); // Obtiene la función dispatch
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
   };
-  const redirectToGoogleSignIn = () => {
-    const redirectUrl = 'TU_URL_DE_REDIRECCION';
-    const clientId = 'TU_CLIENT_ID';
+
+  const handleLocalLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post('/users/login', formData, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (response.status === 200) {
+        const userData = response.data;
+        dispatch(loginSuccess(userData));
+        history.push('/');
+      } else {
+        // Manejar otros casos, como errores de inicio de sesión
+      }
+    } catch (error) {
+      console.error('Error al iniciar sesión localmente:', error);
+    }
+  };
+
+  const handleGoogleLogin = () => {
+    const redirectUrl = 'http://localhost:3000';
+    const clientId = '8005685121-lc08e1doe31irr0ut4slblqt03qskv6s.apps.googleusercontent.com';
     const googleSignInUrl = `https://accounts.google.com/o/oauth2/auth?redirect_uri=${redirectUrl}&response_type=code&client_id=${clientId}&scope=openid%20profile%20email`;
     window.location.href = googleSignInUrl;
   };
-  const redirectToFacebookSignIn = () => {
-    const redirectUrl = 'TU_URL_DE_REDIRECCION';
-    const appId = 'TU_APP_ID';
-    const facebookSignInUrl = `https://www.facebook.com/v11.0/dialog/oauth?client_id=${appId}&redirect_uri=${redirectUrl}&scope=email`;
-    window.location.href = facebookSignInUrl;
-  };
 
   return (
-    <div className={`login-container ${isSignIn ? '' : 'active'}`}>
-      <div className="left-panel">
-        {isSignIn ? (
-          // Estado "Sign In"
-          <div className="panel-content">
-            <h2>Sign In</h2>
-            <div className="button-container">
-              <button className={`google ${styles.google}`} onClick={redirectToGoogleSignIn}>
-                <span>Login with Google</span>
-              </button>
-              <button className={`facebook ${styles.facebook}`} onClick={redirectToFacebookSignIn}>
-                <span>Login with Facebook</span>
-              </button>
+    <div className={style.master}>
+      <div className={style.container}>
+        <div>
+          <h1>Sign In</h1>
+          <button className={`google ${style.google}`} onClick={handleGoogleLogin}>
+            <span>Login with Google</span>
+          </button>
+          <form onSubmit={handleLocalLogin}>
+            <div>
+              <label htmlFor="email">Email:</label>
+              <input
+                type="text"
+                id="email"
+                name="email"
+                placeholder='Email'
+                value={formData.email}
+                onChange={handleChange}
+                required
+              />
             </div>
-            <p>Or use your account</p>
-            <input type="email" placeholder="Email" />
-            <input type="password" placeholder="Password" />
-            <button className={styles.Sign}>Sign In</button>
-          </div>
-        ) : (
-          // Estado "Sign Up"
-          <div className="panel-content">
-            <h2>Create Account</h2>
-            <div className="button-container">
-              <button className={`google ${styles.google}`} onClick={redirectToGoogleSignIn}>
-                <span>Login with Google</span>
-              </button>
-              <button className={`facebook ${styles.facebook}`} onClick={redirectToFacebookSignIn}>
-                <span>Login with Facebook</span>
-              </button>
+            <div>
+              <label htmlFor="password">Password:</label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder='Password'
+                value={formData.password}
+                onChange={handleChange}
+                required
+              />
             </div>
-            <p>Or use your email for registration</p>
-            <input type="text" placeholder="Name" />
-            <input type="email" placeholder="Email" />
-            <input type="password" placeholder="Password" />
-            <button className={styles.Sign}>Sign Up</button>
+            <div>
+              <input
+                type="checkbox"
+                id="rememberMe"
+                name="rememberMe"
+                checked={formData.rememberMe}
+                onChange={(e) => setFormData({ ...formData, rememberMe: e.target.checked })}
+              />
+              <label htmlFor="rememberMe">Remember me</label>
+            </div>
+            <div>
+              <button className={style.Sign} type="submit">Sign in</button>
+            </div>
+          </form>
+          <br></br>
+          <div>
+            <h3>If you don't have an account yet</h3>
           </div>
-        )}
-      </div>
-      <div className="right-panel">
-        {isSignIn ? (
-          // Estado "Sign In"
-          <div className="panel-content">
-            <h2>Hello, Friend!</h2>
-            <p>Enter your personal details and start your journey with us</p>
-            <button className={styles.Sign} onClick={toggleSignInUp}>
-              Sign Up
-            </button>
+          <div>
+            <button className={style.SignUp}><Link to="/register">Sign up</Link></button>
           </div>
-        ) : (
-          // Estado "Sign Up"
-          <div className="panel-content">
-            <h2>Welcome back!</h2>
-            <p>To keep connected with us please login with your personal info</p>
-            <button className={styles.Sign} onClick={toggleSignInUp}>
-              Sign In
-            </button>
-          </div>
-        )}
+        </div>
       </div>
     </div>
   );

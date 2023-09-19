@@ -3,8 +3,17 @@
     background: #CCCCCC;
     background-repeat: no-repeat;
     background-size: cover;
-    height: 100vh;
-}
+    min-height: 100vh; /* Cambiado a min-height */
+  }
+  
+  .container {
+    background-color: #CCCCCC;
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+    max-width: 100%; /* Cambiado a max-width */
+    margin: 20px auto; 
+  }
 .Sign{
     border-radius: 20px;
     border: 1px solid #FF4B2B;
@@ -15,6 +24,7 @@
     padding: 12px 45px;
     letter-spacing: 1px;
     text-transform: uppercase;
+    transition: transform 80ms ease-in;
     cursor: pointer;
 }
 .Sign:active
@@ -25,11 +35,11 @@
 {
     outline: none;
 }
-.SignUp a{
+.SignIn a{
     color: rgb(255, 255, 255);
     text-decoration:none
 }
-.SignUp{
+.SignIn{
     border-radius: 15px;
     border: 1px solid #ff3613;
     background-color: #ff2600;
@@ -41,12 +51,6 @@
     text-transform: uppercase;
     cursor: pointer;
 }
-label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 1px;
-    color: rgb(0, 0, 0);
-  }
 .google {
     width: 120px;
     height: 40px;
@@ -87,11 +91,3 @@ input{
     min-width: 480px;
     margin: 0 auto;
 }
-
-
-
-
-
-
-
-  

@@ -1,0 +1,22 @@
+/* Home.module.css */
+
+.master {
+  display: flex; /* Usar flexbox para organizar los elementos en fila */
+  background: #CCCCCC;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+}
+
+.leftPanel {
+  width: 250px;
+  background-color: #ececec;
+  padding: 20px;
+  display: flex; /* Usar flexbox para organizar los elementos en columna */
+  flex-direction: column; /* Aplicar disposición en columna */
+}
+
+.content {
+  flex-grow: 1;
+  padding: 20px;
+}

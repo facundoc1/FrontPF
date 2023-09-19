@@ -1,0 +1,84 @@
+.product-card {
+  border: 2px solid #333333;
+  border-radius: 8px;
+  padding: 15px;
+  margin: 20px;
+  width: 300px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s;
+  background-color: #f4f4f4;
+}
+
+.product-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+}
+
+.product-card img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.product-card h3 {
+  margin: 10px 0;
+  color: #333333;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.product-card .price {
+  font-weight: bold;
+  color: #474645;
+  font-size: 16px;
+  margin-top: 5px;
+}
+
+.product-card .categories {
+  margin-top: 10px;
+}
+
+.product-card .categories strong {
+  color: #333333;
+  font-weight: bold;
+}
+
+.product-card .categories span {
+  display: block;
+  color: #555555;
+  font-size: 14px;
+}
+
+.product-card .subcategories {
+  margin-top: 10px;
+}
+
+.product-card .subcategories strong {
+  color: #333333;
+  font-weight: bold;
+}
+
+.product-card .subcategories span {
+  display: block;
+  color: #555555;
+  font-size: 14px;
+}
+
+.product-card .btn-details {
+  background-color: #333333;
+  color: #fff;
+  border: none;
+  padding: 10px 16px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin-top: 10px;
+}
+
+.product-card .btn-details:hover {
+  background-color: #222222;
+}

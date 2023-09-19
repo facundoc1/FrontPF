@@ -1,0 +1,74 @@
+.master{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(to right, #9d9b9b 60%, #8ba4ac 200%);
+    
+  }
+.footer{
+    display: flex;
+    justify-content: space-evenly;
+    margin: 10px;
+    
+}
+.GRTech{
+    width: 30%;
+    /* margin-right: 100px; */
+    
+}
+.About{
+    width: 30%;
+    /* margin-left: 100px; */
+    display: flex;
+    flex-direction: column; 
+    
+}
+.buttonContainer {
+    display: flex;
+    flex-direction: column; /* Alinear los botones verticalmente */
+    align-items: initial; /* Alinear los botones a la izquierda */
+  }
+.Home{
+    font: 16px Poppins, sans serif;
+    background-color: transparent;
+    color: #FFFFFF;
+    text-transform: none;
+    text-decoration:none;
+    cursor: pointer;
+    border: 0;
+}
+.Contact{
+    font: 16px Poppins, sans serif;
+    background-color: transparent;
+    color: #FFFFFF;
+    text-transform: none;
+    text-decoration:none;
+    cursor: pointer;
+    border: 0;
+    margin-top: 10px;
+    margin-left: 0;
+}
+.Contact a,
+.Home a{
+    color: rgb(0, 0, 0);
+    text-decoration:none;
+    cursor: pointer;
+    font: 16px Poppins, sans-serif;
+    background-color: transparent;
+}
+.media img{
+    width: 30px;
+  cursor: pointer;
+
+}
+.copyright { 
+    width: 190px;
+    text-align: center; 
+    margin-top: 170px; 
+    font-size: 14px; 
+    color: #777; 
+  }
+  .copyright img{
+    width:6%;
+  }
