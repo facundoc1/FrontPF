@@ -10,7 +10,6 @@ function Home() {
   const products = useSelector((state) => state.products.products);
 
   useEffect(() => {
-    // Realizar la solicitud para obtener productos cuando el componente se monta
     dispatch(axiosProducts());
   }, [dispatch]);
 

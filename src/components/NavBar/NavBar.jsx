@@ -1,4 +1,6 @@
 import React, {useState} from 'react';
+import { useSelector } from 'react-redux'
+import { useParams } from 'react-router-dom';
 import {Link} from "react-router-dom";
 import style from "./NavBar.module.css"
 import SearchBar from "../SearchBar/SearchBar";
@@ -8,10 +10,11 @@ import ModelCart from '../Cart/ModelCart';
 
 
 
-
 const NavBar = ({ onSearch }) => {
     const [isModalOpen, setModalOpen] = useState(false);
     const [cartItems, setCartItems] = useState([]);
+    const { userId } = useParams();
+    const isAuthenticated = useSelector((state) => state.login.isAuthenticated);
 
     const toggleModal = () => {
       setModalOpen(!isModalOpen);
@@ -53,11 +56,11 @@ const NavBar = ({ onSearch }) => {
         <div className={style.cart} onClick={toggleModal}>
           <img src={cart} alt="carrito" />
     </div>
-        <div className={style.login}>
-            <Link to="/Login">
-                <img src={avatar} alt='avatar' />
-            </Link>
-    </div>
+      <div className={style.login}>
+      <Link to={isAuthenticated ? `/userProfile/${userId}` : "/Login"} className={style.login}>
+      <img src={avatar} alt='avatar' />
+      </Link>
+     </div>
     </div>
     {isModalOpen && (
         <div className={style.modal}>

@@ -21,10 +21,10 @@ export const loadReviews = (productId) => {
     };
   };
   
-  export const createReview = (productId, comment, rating) => {
+  export const createReview = (productId, comment, rating, userId, headers) => {
     return async (dispatch) => {
       try {
-        const response = await axios.post(`/api/reviews/${productId}`, { comment, rating });
+        const response = await axios.post(`/reviews/${productId}`, { comment, rating, userId }, { headers });
         dispatch({
           type: CREATE_REVIEW,
           payload: response.data,
@@ -38,7 +38,7 @@ export const loadReviews = (productId) => {
   export const deleteReview = (reviewId) => {
     return async (dispatch) => {
       try {
-        await axios.delete(`/api/reviews/${reviewId}`);
+        await axios.delete(`/reviews/${reviewId}`);
         dispatch({
           type: DELETE_REVIEW,
           payload: reviewId,

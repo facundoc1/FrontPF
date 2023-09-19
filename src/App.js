@@ -10,7 +10,7 @@ import Sale from './components/Sale/Sale';
 import Footer from './components/Footer/Footer';
 import AddProduct from './components/AddProduct/AddProduct';
 import ProductDetail from './components/ProductDetail/ProductDetail'
-
+import UserProfile from './components/Profile/Profile'
 function App() {
   return (
     <div className="App">
@@ -25,6 +25,7 @@ function App() {
           <Route path="/sale" component={Sale} />
           <Route path="/addProduct" component={AddProduct} />
           <Route path="/product/:id" component={ProductDetail} />
+          <Route path="/userProfile/:id" component={UserProfile} />
         </Switch>
         <Footer />
       </BrowserRouter>
