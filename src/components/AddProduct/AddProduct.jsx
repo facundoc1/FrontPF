@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { createProduct } from '../../Redux/actions/actions_create_product';
 import style from "./AddProduct.module.css"
 
+
 const CreateProduct = () => {
   const dispatch = useDispatch();
   const [productData, setProductData] = useState({
@@ -72,6 +73,7 @@ const CreateProduct = () => {
         </div>
         <div>
           <label>Price:</label>
+
           <input type="number" name="price" value={productData.price} onChange={handleChange} required />
         </div>
         <div>
@@ -94,6 +96,7 @@ const CreateProduct = () => {
       </form>
     </div>
   </div>
+
   );
 };
 

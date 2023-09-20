@@ -420,6 +420,7 @@ function RegistrationForm() {
       </div>
     </div>
             <br></br>
+
   </div>
 );
 }

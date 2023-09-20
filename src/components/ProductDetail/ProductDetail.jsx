@@ -20,11 +20,14 @@ const ProductDetail = () => {
   return (
     <div className="product-detail">
       {loading ? (
+
         <p>Loading...</p>
+
       ) : product ? (
         <div>
           <h2>{product.title}</h2>
           <p>{product.summary}</p>
+
           <p>Price: ${product.price}</p>
           <p>Available stock: {product.stock} unidades</p>
           <p>Creation date: {new Date(product.createdAt).toLocaleDateString()}</p>
@@ -32,13 +35,16 @@ const ProductDetail = () => {
           <p>User ID: {product.userId}</p>
 
           <h3>Categories:</h3>
+
           <ul>
             {product.Categories.map((category) => (
               <li key={category.id}>{category.name}</li>
             ))}
           </ul>
 
+
           <h3>Subcategories:</h3>
+
           <ul>
             {product.Subcategories.map((subcategory) => (
               <li key={subcategory.id}>{subcategory.name}</li>
@@ -46,7 +52,9 @@ const ProductDetail = () => {
           </ul>
         </div>
       ) : (
+
         <p>Product not found.</p>
+
       )}
     </div>
   );

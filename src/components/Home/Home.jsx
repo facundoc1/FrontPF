@@ -21,7 +21,9 @@ function Home() {
         <Filters />
       </div>
       <div className={style.content}>
+
         <h2>Products</h2>
+
         {/* Mostrar la lista de productos utilizando el componente ProductList */}
         <ProductList products={products} />
       </div>
