@@ -7,13 +7,13 @@ import SearchBar from "../SearchBar/SearchBar";
 import avatar from "../Assets/avatar.png";
 import cart from "../Assets/cart.svg";
 import ModelCart from '../Cart/ModelCart';
-
+import { getUserIdFromToken } from '../../Redux/actions/actions_auth';
 
 
 const NavBar = ({ onSearch }) => {
     const [isModalOpen, setModalOpen] = useState(false);
     const [cartItems, setCartItems] = useState([]);
-    const { userId } = useParams();
+    const userId = getUserIdFromToken();
     const isAuthenticated = useSelector((state) => state.login.isAuthenticated);
 
     const toggleModal = () => {

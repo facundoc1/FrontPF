@@ -1,14 +1,13 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory, Link } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { getUserProfile } from '../../Redux/actions/actions_profile';
-import { getUserIdFromToken } from '../../Redux/actions/actions_auth';
 import { logout, clearAccessToken, clearRefreshToken } from '../../Redux/actions/actions_login';
 
 const UserProfile = () => {
   const dispatch = useDispatch();
-  const userId = getUserIdFromToken();
   const history = useHistory();
+  const { id } = useParams(); 
   const userData = useSelector((state) => state.profile.userData);
   const loading = useSelector((state) => state.profile.loading);
   const error = useSelector((state) => state.profile.error);
@@ -21,10 +20,8 @@ const UserProfile = () => {
   };
 
   useEffect(() => {
-    if (userId) {
-      dispatch(getUserProfile(userId));
-    }
-  }, [dispatch, userId]);
+    dispatch(getUserProfile(id)); // Ahora obtiene el ID de la URL
+  }, [dispatch, id]);
 
   if (loading) {
     return <div>Cargando...</div>;
@@ -63,11 +60,8 @@ const UserProfile = () => {
       ))}
       <div>
         <button onClick={handleLogout}>Cerrar Sesión</button>
-        </div>    
-    {userData.isAdmin ? (
-      <Link to="/admin">Dashboard de Admin</Link>
-    ) : null}
-  </div>
+      </div>
+    </div>
   );
 };
 

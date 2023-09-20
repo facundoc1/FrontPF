@@ -21,12 +21,11 @@ export const getUserProfileFailure = (error) => ({
   error,
 });
 
-export const getUserProfile = () => async (dispatch) => {
+export const getUserProfile = (id) => async (dispatch) => {
   dispatch(getUserProfileRequest());
 
-  const userId = getUserIdFromToken();
   try {
-    const response = await axios.get(`/users/${userId}`);
+    const response = await axios.get(`/users/${id}`);
     const userData = response.data;
     dispatch(getUserProfileSuccess(userData));
   } catch (error) {
