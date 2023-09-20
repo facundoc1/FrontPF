@@ -419,6 +419,8 @@ function RegistrationForm() {
         </div>
       </div>
     </div>
+            <br></br>
+
   </div>
 );
 }

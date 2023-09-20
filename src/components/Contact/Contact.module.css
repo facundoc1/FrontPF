@@ -1,6 +1,7 @@
 .master,
 .master .container {
-    background: rgb(183, 181, 181);
+    background: #CCCCCC;
+
     background-repeat: no-repeat;
     background-size: cover;
     height: 100vh;

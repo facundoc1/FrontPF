@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { createProduct } from '../../Redux/actions/actions_create_product';
+import style from "./AddProduct.module.css"
+
 
 const CreateProduct = () => {
   const dispatch = useDispatch();
@@ -51,25 +53,27 @@ const CreateProduct = () => {
       
       dispatch(createProduct(formData));
     } else {
-      console.error('El usuario no tiene permiso para publicar productos');
+      console.error('The user does not have permission to post products');
     }
   };
 
   return (
-    <div>
-      <h2>Crear nueva publicación de producto</h2>
+    <div className={style.master}>
+      <div className={style.container}>
+      <h2>Create new product post</h2>
       {error && <p>Error: {error.message}</p>}
       <form onSubmit={handleSubmit}>
         <div>
-          <label>Título:</label>
+          <label>Title:</label>
           <input type="text" name="title" value={productData.title} onChange={handleChange} required />
         </div>
         <div>
-          <label>Descripción:</label>
+          <label>Description:</label>
           <textarea name="summary" value={productData.summary} onChange={handleChange} required />
         </div>
         <div>
-          <label>Precio:</label>
+          <label>Price:</label>
+
           <input type="number" name="price" value={productData.price} onChange={handleChange} required />
         </div>
         <div>
@@ -77,20 +81,22 @@ const CreateProduct = () => {
           <input type="number" name="stock" value={productData.stock} onChange={handleChange} required />
         </div>
         <div>
-        <label>Imagen del Producto:</label>
+        <label>Product image:</label>
         <input type="file" accept="image/*" onChange={handleImageChange} />
         </div>
        <div>
-       <label>Categoría ID:</label>
+       <label>Category ID:</label>
        <input type="text" name="categoryIds" value={productData.categoryIds} onChange={handleChange} />
        </div>
        <div>
-       <label>Subcategoría ID:</label>
+       <label>Subcategory ID:</label>
        <input type="text" name="subcategoryIds" value={productData.subcategoryIds} onChange={handleChange} />
        </div>
-        <button type="submit" disabled={loading}>Crear Producto</button>
+        <button type="submit" disabled={loading}>Create Product</button>
       </form>
     </div>
+  </div>
+
   );
 };
 

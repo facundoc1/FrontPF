@@ -89,7 +89,9 @@ function Login() {
                 checked={formData.rememberMe}
                 onChange={(e) => setFormData({ ...formData, rememberMe: e.target.checked })}
               />
-              <label htmlFor="rememberMe">Recordarme</label>
+
+              <label htmlFor="rememberMe">Remember me</label>
+
             </div>
             <div>
               <button className={style.Sign} type="submit">Sign in</button>
@@ -100,7 +102,9 @@ function Login() {
             <h3>If you don't have an account yet</h3>
           </div>
           <div>
-            <button className={style.SignUp}><Link to="/Registro">Sign up</Link></button>
+
+            <button className={style.SignUp}><Link to="/register">Sign up</Link></button>
+
           </div>
         </div>
       </div>
