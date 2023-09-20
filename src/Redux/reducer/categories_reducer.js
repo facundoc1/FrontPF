@@ -14,12 +14,14 @@ const categoriesReducer = (state = initialState, action) => {
         categories: action.categories,
       };
     case SET_FILTER_CATEGORY:
+      console.log('SET_FILTER_CATEGORY Action:', action); // Agrega este console.log
       return {
         ...state,
         filterCategory: action.category,
         filterSubcategory: '', 
       };
     case SET_FILTER_SUBCATEGORY:
+      console.log('SET_FILTER_SUBCATEGORY Action:', action); // Agrega este console.log
       return {
         ...state,
         filterSubcategory: action.subcategory, 
@@ -28,5 +30,6 @@ const categoriesReducer = (state = initialState, action) => {
       return state;
   }
 };
+
 
 export default categoriesReducer;

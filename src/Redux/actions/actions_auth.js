@@ -57,3 +57,31 @@ export const setRefreshToken = (token) => {
     }
     return null; 
   };
+
+   export const getAuthHeaders = () => {
+    const token = localStorage.getItem('accessToken');
+  
+    if (token) {
+      return {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      };
+    }
+  
+    return {};
+  };
+
+  export const verificarTokenEnRuta = () => async () => {
+    try {
+
+      const response = await axios.post('/verify-token', null, { headers: getAuthHeaders() });
+
+      console.log('Token verificado con éxito', response.data);
+      return response.data;
+      
+    } catch (error) {
+      console.error('Error al verificar el token:', error);
+      
+      throw error;
+    }
+  };

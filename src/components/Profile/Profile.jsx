@@ -1,17 +1,29 @@
 import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch} from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { getUserProfile } from '../../Redux/actions/actions_profile';
 import { getUserIdFromToken } from '../../Redux/actions/actions_auth';
+import { logout, clearAccessToken, clearRefreshToken } from '../../Redux/actions/actions_login'
 
 const UserProfile = () => {
   const dispatch = useDispatch();
   const userId = getUserIdFromToken(); 
+  const history = useHistory();
   const userData = useSelector((state) => state.profile.userData);
   const loading = useSelector((state) => state.profile.loading);
   const error = useSelector((state) => state.profile.error);
 
 
   console.log('userId desde el componente', userId)
+
+  const handleLogout = () => {
+
+    dispatch(logout());
+    clearAccessToken();
+    clearRefreshToken();
+
+    history.push('/');
+  };
 
   useEffect(() => {
     if (userId) { 
@@ -54,7 +66,11 @@ const UserProfile = () => {
           <p>País: {address.country}</p>
         </div>
       ))}
+      <div>
+      <button onClick={handleLogout}>Cerrar Sesión</button>
     </div>
+    </div>
+    
   );
 };
 

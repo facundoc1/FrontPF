@@ -19,25 +19,14 @@ const Review = () => {
   const [rating, setRating] = useState(1);
 
   const handleCreateReview = () => {
-    const token = localStorage.getItem('accessToken');
-
-    if (token && userId) {
-      const headers = {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      };
-      console.log(headers)
-      const reviewData = {
-        userId,
-        comment,
-        rating,
-      };
-
-      dispatch(createReview(id, comment, rating, userId, headers));
+    if (userId) {
+      
+      dispatch(createReview(id, comment, rating, userId)); 
       setComment('');
       setRating(1);
     }
   };
+  
 
   return (
     <div className="product-reviews">

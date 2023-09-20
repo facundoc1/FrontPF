@@ -10,7 +10,7 @@ const CreateProduct = () => {
     summary: '',
     price: 0,
     stock: 0,
-    image: '', // Campo para el enlace de la imagen
+    images: [], 
     categoryIds: '',
     subcategoryIds: '',
   });
@@ -26,41 +26,73 @@ const CreateProduct = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setProductData({
-      ...productData,
-      [name]: value,
-    });
+  
+    if (name === 'images') {
+      // Dividir las URLs separadas por comas en un array
+      const imagesArray = value.split(',').map((url) => url.trim());
+      setProductData({
+        ...productData,
+        [name]: imagesArray,
+      });
+    } else {
+      setProductData({
+        ...productData,
+        [name]: value,
+      });
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     if (userProfile && userProfile.isSeller) {
-      // Solo enviamos el enlace de la imagen al backend
-      const formData = new FormData();
-      formData.append('title', productData.title);
-      formData.append('summary', productData.summary);
-      formData.append('price', productData.price);
-      formData.append('stock', productData.stock);
-      formData.append('image', productData.image);
-      formData.append('categoryIds', productData.categoryIds);
-      formData.append('subcategoryIds', productData.subcategoryIds);
-  
       const token = localStorage.getItem('accessToken');
-  
       const headers = {
         Authorization: `Bearer ${token}`,
       };
-      
+
       try {
+  
+        console.log('productData:', productData);
+        console.log('productData.images:', productData.images);
+        
+        if (productData.images.length === 0) {
+          console.error('Debes seleccionar al menos una imagen.');
+          return;
+        }
+
+        const formData = new FormData();
+        productData.images.forEach((image, index) => {
+          formData.append(`image${index}`, image);
+        });
+        formData.append('title', productData.title);
+        formData.append('summary', productData.summary);
+        formData.append('price', productData.price);
+        formData.append('stock', productData.stock);
+        formData.append('categoryIds', productData.categoryIds);
+        formData.append('subcategoryIds', productData.subcategoryIds);
+
         await dispatch(createProduct(formData, headers));
+
+        // Limpieza del formulario después de enviar
+        setProductData({
+          title: '',
+          summary: '',
+          price: 0,
+          stock: 0,
+          images: [],
+          categoryIds: '',
+          subcategoryIds: '',
+        });
       } catch (error) {
         console.error('Error al crear el producto:', error);
+        // Aquí puedes manejar los errores de manera más específica si es necesario.
       }
     } else {
       console.error('El usuario no tiene permiso para publicar productos');
     }
   };
+
 
   return (
     <div>
@@ -84,8 +116,14 @@ const CreateProduct = () => {
           <input type="number" name="stock" value={productData.stock} onChange={handleChange} required />
         </div>
         <div>
-          <label>Imagen (URL):</label>
-          <input type="text" name="image" value={productData.image} onChange={handleChange} required />
+        <label>Imágenes (URLs separadas por comas):</label>
+        <input
+            type="text"
+            name="images"
+            value={productData.images}
+            onChange={handleChange}
+            required
+            />
         </div>
         <div>
           <label>Categoría ID (separados por comas):</label>

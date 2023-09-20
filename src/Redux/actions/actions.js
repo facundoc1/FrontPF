@@ -51,6 +51,7 @@ export const SET_AUTHENTICATED_USER = 'SET_AUTHENTICATED_USER';
     type: SET_CATEGORIES,
     categories,
   });
+
   
   export const axiosCategories = () => {
     return async (dispatch) => {
@@ -86,7 +87,7 @@ export const SET_AUTHENTICATED_USER = 'SET_AUTHENTICATED_USER';
   };
   
   export const setFilterCategory = (categoryId) => {
-    console.log('setFilterCategory:', categoryId); // Agrega este console.log
+    console.log('setFilterCategory:', categoryId); 
     return {
       type: 'SET_FILTER_CATEGORY',
       payload: categoryId,
@@ -94,7 +95,7 @@ export const SET_AUTHENTICATED_USER = 'SET_AUTHENTICATED_USER';
   };
 
   export const setFilterSubcategory = (subcategoryId) => {
-    console.log('setFilterSubcategory:', subcategoryId); // Agrega este console.log
+    console.log('setFilterSubcategory:', subcategoryId); 
     return {
       type: 'SET_FILTER_SUBCATEGORY',
       payload: subcategoryId,
