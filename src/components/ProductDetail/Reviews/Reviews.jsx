@@ -40,7 +40,6 @@ const Review = () => {
               <li key={review.id}>
                 <p>Comentario: {review.comment}</p>
                 <p>Calificación: {review.rating}</p>
-                {/* Opciones de editar y eliminar a futuro*/}
               </li>
             ))}
           </ul>
