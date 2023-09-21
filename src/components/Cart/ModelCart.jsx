@@ -40,14 +40,10 @@ const ModelCart = ({ items, onClose }) => {
   const closeModal = () => {
     setModalOpen(false);
   };
-
-
-  if (!cartItems || cartItems.length === 0) {
-    return (
-      <div>
+  if (!items || items.length === 0) {
+    return <div>
         No items in the cart.
       </div>
-    );
   }
 
 
@@ -60,24 +56,26 @@ const ModelCart = ({ items, onClose }) => {
             <li key={index}>{item.name}</li>
           ))}
           <div className={style.products}>
-            Product: {name},
+            Product:{name},
             {image},
             Price: ${price},
             Quantity: {quantity},
             <button onClick={increaseQuantity}>+</button><br />
             <button onClick={decreaseQuantity}>-</button>
             <hr />
-            <p>Total Price: ${totalPrice}</p>
+            <p>{totalPrice(price)}</p>
+
 
             <button id="delete-button">Eliminar</button>
           </div>
         </ul>
         <div className={style.buttonsCart}>
           <button className={style.buy}>Buy</button>
-        </div>
-        <button className={style.close} onClick={closeModal}>Close</button>
+          </div>
+        <button className={style.close} onClick={closeModal}>Close</button> 
       </div>
-    </div>
+        </div>
+
   );
 }
 

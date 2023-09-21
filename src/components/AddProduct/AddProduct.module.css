@@ -1,19 +1,6 @@
-
-.master,
-.master .container {
-    background: #CCCCCC;
+.master {
+    background: rgb(183, 181, 181);
     background-repeat: no-repeat;
     background-size: cover;
     height: 100vh;
   }
-  .container {
-    background-color: #fff;
-    border-radius: 10px;
-    position: relative;
-    overflow: hidden;
-    width: 768px;
-    max-width: 100%;
-    min-width: 480px;
-    margin: 0 auto;
-}
-

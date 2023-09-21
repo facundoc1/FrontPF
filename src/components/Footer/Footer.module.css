@@ -3,9 +3,7 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-
-    background: linear-gradient(to right, #9d9b9b 60%, #8ba4ac 200%);
-
+    background: linear-gradient(to right, #959292 60%, #87a2ab 200%);
     
   }
 .footer{

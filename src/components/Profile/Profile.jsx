@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react';
-import { useSelector, useDispatch} from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { useHistory, useParams } from 'react-router-dom';
 import { getUserProfile } from '../../Redux/actions/actions_profile';
-import { getUserIdFromToken } from '../../Redux/actions/actions_auth';
-import { logout, clearAccessToken, clearRefreshToken } from '../../Redux/actions/actions_login'
+import { logout, clearAccessToken, clearRefreshToken } from '../../Redux/actions/actions_login';
 
 const UserProfile = () => {
   const dispatch = useDispatch();
@@ -60,12 +59,10 @@ const UserProfile = () => {
         </div>
       ))}
       <div>
-      <button onClick={handleLogout}>Cerrar Sesión</button>
+        <button onClick={handleLogout}>Cerrar Sesión</button>
+      </div>
     </div>
-    </div>
-    
   );
 };
 
 export default UserProfile;
-

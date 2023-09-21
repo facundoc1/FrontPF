@@ -1,80 +1,106 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { axiosCategories, setFilterCategory, setFilterSubcategory, setFilteredProducts } from '../../Redux/actions/actions';
+import {
+  axiosCategories,
+  setFilterCategory,
+  setFilterSubcategory,
+  filterProducts,
+} from '../../Redux/actions/actions';
+import 'rc-slider/assets/index.css'; // Importa los estilos de rc-slider
+import Slider from 'rc-slider'; // Importa el componente Slider
 import './Filters.module.css';
 import ProductList from '../Cards/Cards';
 
 const Filters = () => {
   const dispatch = useDispatch();
   const categories = useSelector((state) => state.categories.categories);
-  const filterCategory = useSelector((state) => state.categories.filterCategory);
-  const filterSubcategory = useSelector((state) => state.categories.filterSubcategory);
+  const allProducts = useSelector((state) => state.products.products);
 
-  // Estado local para realizar un seguimiento de la categoría y subcategoría actualmente seleccionadas
-  const [selectedCategory, setSelectedCategory] = useState(null);
-  const [selectedSubcategory, setSelectedSubcategory] = useState(null);
+  // Estado local para realizar un seguimiento de la categoría y subcategoría seleccionadas
+  const [selectedCategory, setSelectedCategory] = useState('');
+  const [selectedSubcategory, setSelectedSubcategory] = useState('');
+
+  // Estado local para el rango de precios seleccionado
+  const [priceRange, setPriceRange] = useState([0, 100]); // Rango inicial
 
   useEffect(() => {
     dispatch(axiosCategories());
   }, [dispatch]);
 
+  // Calcula dinámicamente el rango de precios mínimo y máximo
+  useEffect(() => {
+    const minPrice = Math.min(...allProducts.map((product) => product.price));
+    const maxPrice = Math.max(...allProducts.map((product) => product.price));
+    setPriceRange([minPrice, maxPrice]);
+  }, [allProducts]);
+
+  // Función para manejar cambios en la categoría
   const handleCategoryChange = (e, category) => {
-    const selectedCategoryId = e.target.value;
-    dispatch(setFilterCategory(selectedCategoryId));
-    setSelectedCategory(selectedCategoryId);
+    const categoryId = category.id;
+    const isChecked = e.target.checked;
 
-    // Calcula los productos filtrados aquí
-    const filteredProducts = calculateFilteredProducts(allProducts, selectedCategoryId, selectedSubcategory);
+    // Actualizar la categoría seleccionada
+    setSelectedCategory(isChecked ? categoryId : '');
 
-    // Llama a la acción para establecer los productos filtrados
-    dispatch(setFilteredProducts(filteredProducts));
+    // Utilizar setFilterCategory para actualizar el estado en Redux
+    dispatch(setFilterCategory(isChecked ? categoryId : ''));
+
+    applyFilters(isChecked ? categoryId : '', selectedSubcategory, priceRange);
   };
 
+  // Función para manejar cambios en la subcategoría
   const handleSubcategoryChange = (e, subcategory) => {
-    const selectedSubcategoryId = e.target.value;
-    dispatch(setFilterSubcategory(selectedSubcategoryId));
-    setSelectedSubcategory(selectedSubcategoryId);
+    const subcategoryId = subcategory.id;
+    const isChecked = e.target.checked;
 
-    // Calcula los productos filtrados aquí
-    const filteredProducts = calculateFilteredProducts(allProducts, selectedCategory, selectedSubcategoryId);
+    // Actualizar la subcategoría seleccionada
+    setSelectedSubcategory(isChecked ? subcategoryId : '');
 
-    // Llama a la acción para establecer los productos filtrados
-    dispatch(setFilteredProducts(filteredProducts));
+    // Utilizar setFilterSubcategory para actualizar el estado en Redux
+    dispatch(setFilterSubcategory(isChecked ? subcategoryId : ''));
+
+    applyFilters(selectedCategory, isChecked ? subcategoryId : '', priceRange);
   };
 
-  // Obtén todos los productos del estado
-  const allProducts = useSelector((state) => state.products.products);
+  // Función para manejar cambios en el rango de precios
+  const handlePriceRangeChange = (newRange) => {
+    applyFilters(selectedCategory, selectedSubcategory, newRange);
+  };
 
-  // Calcula los productos filtrados
-  const calculateFilteredProducts = (products, categoryFilter, subcategoryFilter) => {
-    let filteredProducts = products;
+  // Función para aplicar todos los filtros
+  const applyFilters = (categoryFilter, subcategoryFilter, priceRangeFilter) => {
+    const filteredProducts = allProducts.filter((product) => {
+      const categoryMatch = !categoryFilter || product.Categories.some((category) => category.id === categoryFilter);
+      const subcategoryMatch = !subcategoryFilter || product.Subcategories.some((subcategory) => subcategory.id === subcategoryFilter);
+      const priceMatch = product.price >= priceRangeFilter[0] && product.price <= priceRangeFilter[1];
+      return categoryMatch && subcategoryMatch && priceMatch;
+    });
 
-    if (categoryFilter) {
-      filteredProducts = filteredProducts.filter((product) =>
-        product.categoryId === categoryFilter
-      );
-    }
-
-    if (subcategoryFilter) {
-      filteredProducts = filteredProducts.filter((product) =>
-        product.subcategoryId === subcategoryFilter
-      );
-    }
-
-    return filteredProducts;
+    dispatch(filterProducts(filteredProducts));
   };
 
   return (
     <div className="filters-container">
+      <div className="price-range">
+        <h3>Price Range</h3>
+        <Slider
+          range
+          min={priceRange[0]} // Utiliza el valor mínimo calculado
+          max={priceRange[1]} // Utiliza el valor máximo calculado
+          defaultValue={priceRange} // Establece el valor inicial
+          onChange={handlePriceRangeChange} // Maneja los cambios en el rango de precios
+        />
+        <span>Price: {priceRange[0]} - {priceRange[1]}</span>
+      </div>
       <div className="category-list">
         <h3>Categories</h3>
         {categories ? (
           categories.map((category) => (
             <div key={category.id} className="category-item">
               <label className="category-label">
-                {category.name} 
+                {category.name}
                 <input
-                  type="radio"
+                  type="checkbox"
                   id={`category-${category.id}`}
                   name="category"
                   value={category.id}
@@ -90,7 +116,7 @@ const Filters = () => {
                       <label className="subcategory-label">
                         {subcategory.name}
                         <input
-                          type="radio"
+                          type="checkbox"
                           id={`subcategory-${subcategory.id}`}
                           name="subcategory"
                           value={subcategory.id}
@@ -109,6 +135,7 @@ const Filters = () => {
           <p>Loading...</p>
         )}
       </div>
+
     </div>
   );
 };

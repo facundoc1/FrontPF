@@ -4,23 +4,26 @@ import styles from './Cards.module.css';
 import { useSelector } from 'react-redux';
 
 function ProductList() {
-  const filteredProducts = useSelector((state) => state.products.filteredProducts);
   const allProducts = useSelector((state) => state.products.products);
+  const filteredProducts = useSelector((state) => state.products.filteredProducts);
 
-  // Verifica si hay productos filtrados; si no, muestra todos los productos
-  const productsToDisplay = filteredProducts && filteredProducts.length ? filteredProducts : allProducts && allProducts.length ? allProducts : [];
+  const activeProducts = filteredProducts.filter((product) => product.active === true);
 
-  if (productsToDisplay.length === 0) {
-    return <p>No products to display.</p>;
-  }
+  const hasFilteredProducts = activeProducts.length > 0;
 
   return (
     <div className={styles.productList}>
-      {productsToDisplay.map((product) => (
-        <CardProduct key={product.id} product={product} />
-      ))}
+      {hasFilteredProducts ? (
+        activeProducts.map((product) => (
+          <CardProduct key={product.id} product={product} />
+        ))
+      ) : (
+        <p>No hay productos disponibles ):</p>
+      )}
     </div>
   );
 }
 
 export default ProductList;
+
+
