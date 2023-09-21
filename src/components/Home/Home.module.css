@@ -1,6 +1,7 @@
 .master {
-  display: flex;
+  display: flex; /* Usar flexbox para organizar los elementos en fila */
   background: #CCCCCC;
+
   background-repeat: no-repeat;
   background-size: cover;
   height: 100vh;

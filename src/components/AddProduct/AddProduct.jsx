@@ -5,7 +5,6 @@ import { getUserProfile } from '../../Redux/actions/actions_profile';
 import style from "./AddProduct.module.css";
 import axios from 'axios';
 
-
 const CreateProduct = () => {
   const dispatch = useDispatch();
   const [productData, setProductData] = useState({
@@ -129,7 +128,7 @@ const CreateProduct = () => {
           <input name="summary" value={productData.summary} onChange={handleChange} required />
         </div>
         <div>
-          <label>Precio:</label>
+          <label>Price:</label>
           <input type="number" name="price" value={productData.price} onChange={handleChange} required />
         </div>
         <div>
@@ -180,7 +179,7 @@ const CreateProduct = () => {
         <button type="submit" disabled={loading}>Crear Producto</button>
       </form>
     </div>
-            </div>
+  </div>
   );
 };
 

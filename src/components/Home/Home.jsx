@@ -18,10 +18,11 @@ function Home() {
         <Filters />
       </div>
       <div className={style.content}>
+
                
           <ProductList />
         </div>
-      </div>
+</div>
     
   );
 }
