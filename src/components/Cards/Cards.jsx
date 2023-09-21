@@ -34,6 +34,12 @@ function ProductList() {
       <div className={styles.productList}>
         {currentProducts.map((product) => (
           <CardProduct key={product.id} product={product} />
+
+        ))
+      ) : (
+        <p>No hay productos disponibles :</p>
+      )}
+
         ))}
       </div>
 
@@ -50,8 +56,10 @@ function ProductList() {
           ))}
         </ul>
       </div>
+
     </div>
   );
 }
 
 export default ProductList;
+

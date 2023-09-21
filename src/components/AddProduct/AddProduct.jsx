@@ -157,6 +157,10 @@ const CreateProduct = () => {
             value={productData.categoryId}
             onChange={handleCategoryChange}
 
+            >
+
+
+
             <option value="">Selecciona una categoría</option>
             {categories.map((category) => (
               <option key={category.id} value={category.id}>
@@ -171,6 +175,8 @@ const CreateProduct = () => {
             name="subcategoryId"
             value={productData.subcategoryId}
             onChange={handleChange}
+
+            >
 
             <option value="">Selecciona una subcategoría</option>
             {subcategories.map((subcategory) => (
@@ -189,5 +195,8 @@ const CreateProduct = () => {
 
   );
 };
+
+export default CreateProduct;
+
 
 export default CreateProduct;

@@ -60,7 +60,7 @@ export const setRefreshToken = (token) => {
 
    export const getAuthHeaders = () => {
     const token = localStorage.getItem('accessToken');
-  
+    console.log('desde actions', token)
     if (token) {
       return {
         'Authorization': `Bearer ${token}`,
@@ -71,17 +71,43 @@ export const setRefreshToken = (token) => {
     return {};
   };
 
-  export const verificarTokenEnRuta = () => async () => {
+  export const verificarTokenEnRuta = async () => {
     try {
-      console.log('sí verificó')
-      const response = await axios.post('/verify-token', null, { headers: getAuthHeaders() });
-
+      const token = getAccessToken();
+      
+      if (!token) {
+        throw new Error('Token de acceso no encontrado');
+      }
+  
+      const response = await axios.post('/verify-token', null, { headers: { 'Authorization': `Bearer ${token}` } });
       console.log('Token verificado con éxito', response.data);
       return response.data;
-      
     } catch (error) {
       console.error('Error al verificar el token:', error);
-      
       throw error;
     }
   };
+  export const getUserProfileFromToken = (token = null) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        if (!token) {
+          token = localStorage.getItem('accessToken');
+          if (!token) {
+            resolve(null);
+            return;
+          }
+        }
+  
+        const decodedToken = jwt_decode(token);
+        const userId = decodedToken.userId;
+  
+        const response = await axios.get(`/users/${userId}`);
+        const userData = response.data;
+  
+        resolve(userData);
+      } catch (error) {
+        reject(error);
+      }
+    });
+  };
+  

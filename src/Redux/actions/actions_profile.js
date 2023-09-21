@@ -22,13 +22,41 @@ export const getUserProfileFailure = (error) => ({
 });
 
 export const getUserProfile = (id) => async (dispatch) => {
-  dispatch(getUserProfileRequest());
+  try {
+    if (id === null) {
+      const userData = { name: "GrTech" };
+      dispatch(getUserProfileSuccess(userData));
+      return userData;
+    } else {
+      const response = await axios.get(`/users/${id}`);
+      const userData = response.data;
+      dispatch(getUserProfileSuccess(userData));
+      return userData;
+    }
+  } catch (error) {
+    dispatch(getUserProfileFailure(error));
+    throw error;
+  }
+};
 
+export const getUserProfileFromToken = (id) => async (dispatch) => {
   try {
     const response = await axios.get(`/users/${id}`);
     const userData = response.data;
-    dispatch(getUserProfileSuccess(userData));
+    dispatch(getUserProfileSuccess(userData)); 
+    return userData; 
   } catch (error) {
     dispatch(getUserProfileFailure(error));
+    throw error; 
+  }
+};
+
+export const getAllUserProfiles = async () => {
+  try {
+    const response = await axios.get('/users');
+    const userProfiles = response.data;
+    return userProfiles;
+  } catch (error) {
+    throw error;
   }
 };
