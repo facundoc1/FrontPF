@@ -1,85 +1,28 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import { Link } from 'react-router-dom'; 
+import CardProduct from '../Cards/CardProduct'; 
+import styles from './DashboardAdmin.module.css'; 
+import { useSelector } from 'react-redux';
+import { getAllUserProfiles } from '../../Redux/actions/actions_profile';
 
 const AdminDashboard = () => {
-  const [selectedSection, setSelectedSection] = useState('publicaciones');
-  const [posts, setPosts] = useState([]);
-  const [users, setUsers] = useState([]);
-  const [selectedPost, setSelectedPost] = useState(null);
-  const [selectedUser, setSelectedUser] = useState(null);
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [selectedSection, setSelectedSection] = useState(null);
+  const allProducts = useSelector((state) => state.products.products);
+  const inactiveProducts = allProducts.filter((product) => !product.active);
+  const [userProfiles, setUserProfiles] = useState([]);
+  const isAdmin = true; 
 
-  useEffect(() => {    
-    const fetchPosts = async () => {
+  useEffect(() => {
+    const fetchUserProfiles = async () => {
       try {
-        const response = await axios.get();
-        setPosts(response.data);
+        const profiles = await getAllUserProfiles();
+        setUserProfiles(profiles);
       } catch (error) {
-        console.error('Error al cargar las publicaciones:', error);
+        console.error('Error al obtener perfiles de usuario:', error);
       }
     };
-    
-    const fetchUsers = async () => {
-      try {
-        const response = await axios.get();
-        setUsers(response.data);
-      } catch (error) {
-        console.error('Error al cargar los usuarios:', error);
-      }
-    };
-
-    fetchPosts();
-    fetchUsers();
+    fetchUserProfiles();
   }, []);
-
-  const handleDeletePost = async () => {
-    if (selectedPost) {
-      try {        
-        await axios.delete(`/api/posts/${selectedPost.id}`);
-        const updatedPosts = posts.filter((post) => post.id !== selectedPost.id);
-        setPosts(updatedPosts);
-        setSelectedPost(null);
-      } catch (error) {
-        console.error('Error al eliminar la publicación:', error);
-      }
-    }
-  };
-
-  const handleDeleteUser = async () => {
-    if (selectedUser) {
-      try {
-        await axios.delete(`/api/users/${selectedUser.id}`);
-        const updatedUsers = users.filter((user) => user.id !== selectedUser.id);
-        setUsers(updatedUsers);
-        setSelectedUser(null);
-      } catch (error) {
-        console.error('Error al eliminar al usuario:', error);
-      }
-    }
-  };
-
-  const handleToggleAdminStatus = async () => {
-    if (selectedUser) {
-      try {
-        await axios.put(`/api/users/${selectedUser.id}`, {
-          isAdmin: !selectedUser.isAdmin,
-        });
-
-       
-        const updatedUsers = users.map((user) =>
-          user.id === selectedUser.id
-            ? { ...user, isAdmin: !user.isAdmin }
-            : user
-        );
-        setUsers(updatedUsers);
-
-        setSelectedUser({ ...selectedUser, isAdmin: !selectedUser.isAdmin });
-        setIsAdmin(!isAdmin);
-      } catch (error) {
-        console.error('Error al cambiar el estado de admin del usuario:', error);
-      }
-    }
-  };
 
   return (
     <div>
@@ -96,51 +39,62 @@ const AdminDashboard = () => {
               Usuarios
             </button>
           </li>
+          <li>
+            <button onClick={() => setSelectedSection('reviews')}>
+              Reviews
+            </button>
+          </li>
         </ul>
       </nav>
 
       {selectedSection === 'publicaciones' && (
         <div>
-          <h3>Lista de Publicaciones</h3>
-          <ul>
-            {posts.map((post) => (
-              <li key={post.id}>
-                {post.title}
-                <button onClick={() => setSelectedPost(post)}>Eliminar</button>
-              </li>
+          <h3>Publicaciones Activas</h3>
+          <div className={styles.horizontalList}>
+            {allProducts.map((product) => (
+              <div key={product.id} className={styles.horizontalItem}>
+                <Link to={`/product/${product.id}`}>
+                  <p>{product.title}</p>
+                </Link>
+              </div>
             ))}
-          </ul>
-          {selectedPost && (
-            <div>
-              <p>¿Eliminar la publicación "{selectedPost.title}" y sus reviews?</p>
-              <button onClick={handleDeletePost}>Confirmar</button>
-              <button onClick={() => setSelectedPost(null)}>Cancelar</button>
+          </div>
+          <h3>Publicaciones Inactivas</h3>
+          {inactiveProducts.length > 0 ? (
+            <div className={styles.horizontalList}>
+              {inactiveProducts.map((product) => (
+                <div key={product.id} className={styles.horizontalItem}>
+                  <Link to={`/product/${product.id}`}>
+                    <p>{product.title}</p>
+                  </Link>
+                </div>
+              ))}
             </div>
+          ) : (
+            <p>No hay productos inactivos</p>
           )}
         </div>
       )}
 
-      {selectedSection === 'usuarios' && (
+{selectedSection === 'usuarios' && (
         <div>
-          <h3>Lista de Usuarios</h3>
-          <ul>
-            {users.map((user) => (
-              <li key={user.id}>
-                {user.username}
-                <button onClick={() => setSelectedUser(user)}>Eliminar</button>
-                <button onClick={handleToggleAdminStatus}>
-                  {user.isAdmin ? 'Quitar Admin' : 'Hacer Admin'}
-                </button>
-              </li>
-            ))}
-          </ul>
-          {selectedUser && (
-            <div>
-              <p>¿Eliminar al usuario "{selectedUser.username}"?</p>
-              <button onClick={handleDeleteUser}>Confirmar</button>
-              <button onClick={() => setSelectedUser(null)}>Cancelar</button>
+          <h3>Usuarios Activos</h3>
+          {/* Mostrar nombres de usuario y direcciones de correo electrónico */}
+          {userProfiles.map((profile) => (
+            <div key={profile.id}>
+              <h4>Usuario</h4>
+              <p>Nombre de Usuario: <Link to={`/userProfile/${profile.id}`}>{profile.username}</Link></p>
+              <p>Email: {profile.email}</p>
             </div>
-          )}
+          ))}
+          {userProfiles.length === 0 && <p>No hay usuarios activos.</p>}
+        </div>
+      )}
+
+      {selectedSection === 'reviews' && (
+        <div>
+          <h3>Reviews Activas</h3>
+          {/* Agrega el contenido para reviews activos aquí */}
         </div>
       )}
     </div>

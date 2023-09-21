@@ -38,25 +38,25 @@ export const loadReviews = (productId) => {
     };
   };
   
-  export const deleteReview = (reviewId) => {
-    return async (dispatch) => {
-      try {
-        const headers = getAuthHeaders();
+  // export const deleteReview = (reviewId) => {
+  //   return async (dispatch) => {
+  //     try {
+  //       const headers = getAuthHeaders();
   
-        if (headers) {
-          await axios.delete(`/reviews/${reviewId}`, { headers });
-          dispatch({
-            type: DELETE_REVIEW,
-            payload: reviewId,
-          });
-        } else {
-          console.error('No se encontró un token de acceso.');
-        }
-      } catch (error) {
-        console.error('Error al eliminar la revisión:', error);
-      }
-    };
-  };
+  //       if (headers) {
+  //         await axios.delete(`/reviews/${reviewId}`, { headers });
+  //         dispatch({
+  //           type: DELETE_REVIEW,
+  //           payload: reviewId,
+  //         });
+  //       } else {
+  //         console.error('No se encontró un token de acceso.');
+  //       }
+  //     } catch (error) {
+  //       console.error('Error al eliminar la revisión:', error);
+  //     }
+  //   };
+  // };
   
   export const editReview = (reviewId, comment, rating) => {
     return async (dispatch) => {

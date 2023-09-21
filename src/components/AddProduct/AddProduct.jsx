@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { createProduct } from '../../Redux/actions/actions_create_product';
-import { getUserProfile } from '../../Redux/actions/actions_profile';
 import style from "./AddProduct.module.css"
 
 const CreateProduct = () => {
@@ -22,8 +21,28 @@ const CreateProduct = () => {
   const error = useSelector((state) => state.createProduct.error);
 
   useEffect(() => {
-    dispatch(getUserProfile());
-  }, [dispatch]);
+    const fetchData = async () => {
+      try {
+        // Verifica si hay un token
+        const token = localStorage.getItem('accessToken');
+        if (!token) {
+          console.error('No hay un token válido, las validaciones no se ejecutarán');
+          return;
+        }
+
+        if (userProfile && userProfile.isSeller) {
+          // Continuar con el flujo, puedes poner aquí tu lógica para crear productos
+          console.log('El usuario es un vendedor, puedes continuar');
+        } else {
+          console.error('El usuario no tiene permiso para publicar productos');
+        }
+      } catch (error) {
+        console.error('Error al obtener el perfil del usuario:', error);
+      }
+    };
+
+    fetchData(); // Llama a la función fetchData para realizar las operaciones
+  }, [dispatch, userProfile]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;

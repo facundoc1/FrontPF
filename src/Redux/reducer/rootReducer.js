@@ -10,6 +10,8 @@ import createProductReducer from './create_product_reducer'
 import reviewReducer from './review_reducer'
 import authReducer from './auth_reducer'
 import profileReducer from './profile_reducer'
+import tempCartReducer from './temp_cart_reducer'
+import paymentReducer from './payment_reducer'
 
 
 const rootReducer = combineReducers({
@@ -21,7 +23,9 @@ const rootReducer = combineReducers({
   createProduct: createProductReducer,
   review: reviewReducer,
   authorization: authReducer,
-  profile: profileReducer
+  profile: profileReducer,
+  tempCart: tempCartReducer,
+  payment: paymentReducer
 });
 
 export default rootReducer;
