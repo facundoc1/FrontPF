@@ -13,8 +13,10 @@ import Contact from './components/Contact/Contact';
 import Sale from './components/Sale/Sale';
 import Footer from './components/Footer/Footer';
 import AddProduct from './components/AddProduct/AddProduct';
-import ProductDetail from './components/ProductDetail/ProductDetail'
-import UserProfile from './components/Profile/Profile'
+import ProductDetail from './components/ProductDetail/ProductDetail';
+import UserProfile from './components/Profile/Profile';
+import AdminDashboard from './components/Profile/AdminDashboard';
+
 
 import { loginSuccess } from './Redux/actions/actions_login';
 import { setAccessToken, setRefreshToken, getAccessToken, getRefreshToken, verificarTokenEnRuta, renewToken } from './Redux/actions/actions_auth'
@@ -23,6 +25,7 @@ import { setAccessToken, setRefreshToken, getAccessToken, getRefreshToken, verif
 
 
 function App() {
+  console.log(localStorage)
   const dispatch = useDispatch();
   const [sessionExpired, setSessionExpired] = useState(false);
   const isAuthenticated = useSelector((state) => state.login.isAuthenticated);
@@ -75,6 +78,7 @@ function App() {
           <Route path="/addProduct" component={AddProduct} />
           <Route path="/product/:id" component={ProductDetail} />
           <Route path="/userProfile/:id" component={UserProfile} />
+          <Route path="/admin" component={AdminDashboard} />
         </Switch>
         <Footer />
       </BrowserRouter>

@@ -73,7 +73,7 @@ export const setRefreshToken = (token) => {
 
   export const verificarTokenEnRuta = () => async () => {
     try {
-
+      console.log('sí verificó')
       const response = await axios.post('/verify-token', null, { headers: getAuthHeaders() });
 
       console.log('Token verificado con éxito', response.data);

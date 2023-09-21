@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { createProduct } from '../../Redux/actions/actions_create_product';
 import { getUserProfile } from '../../Redux/actions/actions_profile';
+import style from "./AddProduct.module.css"
 
 const CreateProduct = () => {
   const dispatch = useDispatch();
@@ -28,7 +29,6 @@ const CreateProduct = () => {
     const { name, value } = e.target;
   
     if (name === 'images') {
-      // Dividir las URLs separadas por comas en un array
       const imagesArray = value.split(',').map((url) => url.trim());
       setProductData({
         ...productData,
@@ -74,7 +74,6 @@ const CreateProduct = () => {
 
         await dispatch(createProduct(formData, headers));
 
-        // Limpieza del formulario después de enviar
         setProductData({
           title: '',
           summary: '',
@@ -86,7 +85,6 @@ const CreateProduct = () => {
         });
       } catch (error) {
         console.error('Error al crear el producto:', error);
-        // Aquí puedes manejar los errores de manera más específica si es necesario.
       }
     } else {
       console.error('El usuario no tiene permiso para publicar productos');

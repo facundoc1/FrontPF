@@ -47,7 +47,7 @@ function Login() {
   };
 
   const handleGoogleLogin = () => {
-    const redirectUrl = 'http://localhost:300';
+    const redirectUrl = 'http://localhost:3000';
     const clientId = '8005685121-lc08e1doe31irr0ut4slblqt03qskv6s.apps.googleusercontent.com';
     const googleSignInUrl = `https://accounts.google.com/o/oauth2/auth?redirect_uri=${redirectUrl}&response_type=code&client_id=${clientId}&scope=openid%20profile%20email`;
     window.location.href = googleSignInUrl;
