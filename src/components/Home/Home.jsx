@@ -18,15 +18,14 @@ function Home() {
         <Filters />
       </div>
       <div className={style.content}>
-        <h2>Productos</h2>        
-        <div className={style.centerContent}>
-      <div className={style.cardContainer}>
+
+
+               
           <ProductList />
         </div>
-        </div>
-        
-      </div>
-    </div>
+</div>
+    
+
   );
 }
 

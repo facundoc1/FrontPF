@@ -34,11 +34,7 @@ const NavBar = ({ onSearch }) => {
         <div className={style.logo}>
             <Link to='/' style={{ font: '28px Poppins, sans-serif' }}>GRTECH</Link>
         </div>
-    <div className={style.buttonSale}>
-        <button className={style.sale}>
-            <Link to="/Sale">Sale</Link>
-        </button>
-    </div>
+   
     <div className={style.searchBar}>
             <SearchBar onSearch={onSearch} />
     </div>
