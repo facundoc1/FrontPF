@@ -5,6 +5,7 @@ import { getUserProfile } from '../../Redux/actions/actions_profile';
 import style from "./AddProduct.module.css";
 import axios from 'axios';
 
+
 const CreateProduct = () => {
   const dispatch = useDispatch();
   const [productData, setProductData] = useState({
@@ -113,8 +114,10 @@ const CreateProduct = () => {
   };
 
   return (
+
     <div className={style.master}>
       <div className={style.container}>
+
 
       <h2>Crear nueva publicación de producto</h2>
       {error && <p>Error: {error.message}</p>}
@@ -128,7 +131,9 @@ const CreateProduct = () => {
           <input name="summary" value={productData.summary} onChange={handleChange} required />
         </div>
         <div>
+
           <label>Price:</label>
+
           <input type="number" name="price" value={productData.price} onChange={handleChange} required />
         </div>
         <div>
@@ -151,7 +156,7 @@ const CreateProduct = () => {
             name="categoryId"
             value={productData.categoryId}
             onChange={handleCategoryChange}
-            >
+
             <option value="">Selecciona una categoría</option>
             {categories.map((category) => (
               <option key={category.id} value={category.id}>
@@ -166,7 +171,7 @@ const CreateProduct = () => {
             name="subcategoryId"
             value={productData.subcategoryId}
             onChange={handleChange}
-            >
+
             <option value="">Selecciona una subcategoría</option>
             {subcategories.map((subcategory) => (
               <option key={subcategory.id} value={subcategory.id}>
@@ -175,11 +180,13 @@ const CreateProduct = () => {
             ))}
           </select>
         </div>
+
         <br></br>
         <button type="submit" disabled={loading}>Crear Producto</button>
       </form>
     </div>
   </div>
+
   );
 };
 

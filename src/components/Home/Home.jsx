@@ -19,11 +19,13 @@ function Home() {
       </div>
       <div className={style.content}>
 
+
                
           <ProductList />
         </div>
 </div>
     
+
   );
 }
 

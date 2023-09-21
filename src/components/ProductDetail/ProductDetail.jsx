@@ -24,6 +24,7 @@ const ProductDetail = () => {
         <div>
           <h2>{product.title}</h2>
           <p>{product.summary}</p>
+
           <p>Price: ${product.price}</p>
           <p>Available stock: {product.stock} unidades</p>
           <p>Creation date: {new Date(product.createdAt).toLocaleDateString()}</p>
@@ -38,6 +39,7 @@ const ProductDetail = () => {
           </ul>
 
           <h3>Subcategories:</h3>
+
           <ul>
             {product.Subcategories.map((subcategory) => (
               <li key={subcategory.id}>{subcategory.name}</li>
@@ -46,7 +48,9 @@ const ProductDetail = () => {
           <Review />
         </div>
       ) : (
+
         <p>Product not found.</p>
+
       )}
     </div>
   );
