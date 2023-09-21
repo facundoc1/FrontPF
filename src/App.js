@@ -66,7 +66,7 @@ function App() {
           <Route path="/login">
             {isAuthenticated ? <Redirect to="/" /> : <Login />}
           </Route>
-          <Route path="/registro" component={Form} />
+          <Route path="/register" component={Form} />
           <Route path="/profile" component={Profile} />
           <Route path="/contact" component={Contact} />
           <Route path="/sale" component={Sale} />

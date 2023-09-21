@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { createProduct } from '../../Redux/actions/actions_create_product';
-import style from "./AddProduct.module.css"
+import { getUserProfile } from '../../Redux/actions/actions_profile';
+import style from "./AddProduct.module.css";
+import axios from 'axios';
+
 
 const CreateProduct = () => {
   const dispatch = useDispatch();
@@ -10,43 +13,33 @@ const CreateProduct = () => {
     summary: '',
     price: 0,
     stock: 0,
-    images: [], 
-    categoryIds: '',
-    subcategoryIds: '',
+    image: [],
+    categoryId: [], 
+    subcategoryId: [], 
   });
 
   const userProfile = useSelector((state) => state.profile.userData);
 
   const loading = useSelector((state) => state.createProduct.loading);
   const error = useSelector((state) => state.createProduct.error);
+  const [categories, setCategories] = useState([]);
+  const [subcategories, setSubcategories] = useState([]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        // Verifica si hay un token
-        const token = localStorage.getItem('accessToken');
-        if (!token) {
-          console.error('No hay un token válido, las validaciones no se ejecutarán');
-          return;
-        }
+    dispatch(getUserProfile());
 
-        if (userProfile && userProfile.isSeller) {
-          // Continuar con el flujo, puedes poner aquí tu lógica para crear productos
-          console.log('El usuario es un vendedor, puedes continuar');
-        } else {
-          console.error('El usuario no tiene permiso para publicar productos');
-        }
-      } catch (error) {
-        console.error('Error al obtener el perfil del usuario:', error);
-      }
-    };
-
-    fetchData(); // Llama a la función fetchData para realizar las operaciones
-  }, [dispatch, userProfile]);
+    axios.get('/category')
+      .then((response) => {
+        setCategories(response.data);
+      })
+      .catch((error) => {
+        console.error('Error al obtener las categorías:', error);
+      });
+  }, [dispatch]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-  
+
     if (name === 'images') {
       const imagesArray = value.split(',').map((url) => url.trim());
       setProductData({
@@ -61,6 +54,20 @@ const CreateProduct = () => {
     }
   };
 
+  const handleCategoryChange = (e) => {
+    const selectedCategory = e.target.value;
+    setProductData({
+      ...productData,
+      categoryId: selectedCategory,
+    });
+
+    
+    const selectedCategoryObject = categories.find((category) => category.id === selectedCategory);
+    if (selectedCategoryObject) {
+      setSubcategories(selectedCategoryObject.subcategories);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -71,10 +78,6 @@ const CreateProduct = () => {
       };
 
       try {
-  
-        console.log('productData:', productData);
-        console.log('productData.images:', productData.images);
-        
         if (productData.images.length === 0) {
           console.error('Debes seleccionar al menos una imagen.');
           return;
@@ -88,8 +91,8 @@ const CreateProduct = () => {
         formData.append('summary', productData.summary);
         formData.append('price', productData.price);
         formData.append('stock', productData.stock);
-        formData.append('categoryIds', productData.categoryIds);
-        formData.append('subcategoryIds', productData.subcategoryIds);
+        formData.append('categoryId', productData.categoryId); 
+        formData.append('subcategoryId', productData.subcategoryId); 
 
         await dispatch(createProduct(formData, headers));
 
@@ -98,9 +101,9 @@ const CreateProduct = () => {
           summary: '',
           price: 0,
           stock: 0,
-          images: [],
-          categoryIds: '',
-          subcategoryIds: '',
+          image: [],
+          categoryId: [], 
+          subcategoryId: [], 
         });
       } catch (error) {
         console.error('Error al crear el producto:', error);
@@ -110,9 +113,12 @@ const CreateProduct = () => {
     }
   };
 
-
   return (
-    <div>
+
+    <div className={style.master}>
+      <div className={style.container}>
+
+
       <h2>Crear nueva publicación de producto</h2>
       {error && <p>Error: {error.message}</p>}
       <form onSubmit={handleSubmit}>
@@ -122,10 +128,12 @@ const CreateProduct = () => {
         </div>
         <div>
           <label>Descripción:</label>
-          <textarea name="summary" value={productData.summary} onChange={handleChange} required />
+          <input name="summary" value={productData.summary} onChange={handleChange} required />
         </div>
         <div>
-          <label>Precio:</label>
+
+          <label>Price:</label>
+
           <input type="number" name="price" value={productData.price} onChange={handleChange} required />
         </div>
         <div>
@@ -133,38 +141,52 @@ const CreateProduct = () => {
           <input type="number" name="stock" value={productData.stock} onChange={handleChange} required />
         </div>
         <div>
-        <label>Imágenes (URLs separadas por comas):</label>
-        <input
+          <label>Imágenes (URLs separadas por comas):</label>
+          <input
             type="text"
             name="images"
             value={productData.images}
             onChange={handleChange}
             required
-            />
-        </div>
-        <div>
-          <label>Categoría ID (separados por comas):</label>
-          <input
-            type="text"
-            name="categoryIds"
-            value={productData.categoryIds}
-            onChange={handleChange}
           />
         </div>
         <div>
-          <label>Subcategoría ID (separados por comas):</label>
-          <input
-            type="text"
-            name="subcategoryIds"
-            value={productData.subcategoryIds}
-            onChange={handleChange}
-          />
+          <label>Categoría:</label>
+          <select
+            name="categoryId"
+            value={productData.categoryId}
+            onChange={handleCategoryChange}
+            >
+            <option value="">Selecciona una categoría</option>
+            {categories.map((category) => (
+              <option key={category.id} value={category.id}>
+                {category.name}
+              </option>
+            ))}
+          </select>
         </div>
+        <div>
+          <label>Subcategoría:</label>
+          <select
+            name="subcategoryId"
+            value={productData.subcategoryId}
+            onChange={handleChange}
+            >
+            <option value="">Selecciona una subcategoría</option>
+            {subcategories.map((subcategory) => (
+              <option key={subcategory.id} value={subcategory.id}>
+                {subcategory.name}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <br></br>
         <button type="submit" disabled={loading}>Crear Producto</button>
       </form>
     </div>
+  </div>
+
   );
 };
-
 export default CreateProduct;
-

@@ -1,8 +1,9 @@
 .productList {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px; 
-    justify-content: flex-start; 
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
   }
   
 
@@ -38,4 +39,39 @@
     text-decoration: none;
     color: #2196f3; 
   }
+  .pagination {  
+    display: flex;
+    list-style: none;
+    padding: 0;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+  }
+ 
+  .pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
   
+  .pagination ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    gap: 8px;
+  }
+  
+  .pagination li {
+    cursor: pointer;
+    padding: 8px 12px;
+    background-color: #f4f4f4;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: background-color 0.2s, color 0.2s, border 0.2s;
+  }
+  
+  .pagination li.active {
+    background-color: #333;
+    color: #fff;
+    border: 1px solid #333;
+  }

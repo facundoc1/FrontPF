@@ -18,12 +18,10 @@ function ProductList() {
           <CardProduct key={product.id} product={product} />
         ))
       ) : (
-        <p>No hay productos disponibles ):</p>
+        <p>No hay productos disponibles :</p>
       )}
     </div>
   );
 }
 
 export default ProductList;
-
-
