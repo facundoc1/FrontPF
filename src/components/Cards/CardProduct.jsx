@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import styles from './CardProduct.module.css'; 
+import styles from './CardProduct.module.css';
 
 function CardProduct({ product }) {
   return (
     <div className={styles['product-card']}>
-      {product.images && (
+      {product.images && product.images !== '' && (
         <img src={product.images} alt={product.title} />
       )}
       <h3>{product.title}</h3>
