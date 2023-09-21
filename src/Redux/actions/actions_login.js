@@ -9,3 +9,11 @@ export const loginSuccess = (user, accessToken, refreshToken) => ({
   export const logout = () => ({
     type: 'LOGOUT',
   });
+
+  export const clearAccessToken = () => {
+    localStorage.removeItem('accessToken');
+  };
+  
+  export const clearRefreshToken = () => {
+    localStorage.removeItem('refreshToken');
+  };
