@@ -4,6 +4,8 @@ import { createProduct } from '../../Redux/actions/actions_create_product';
 import { getUserProfile } from '../../Redux/actions/actions_profile';
 import style from "./AddProduct.module.css";
 import axios from 'axios';
+import style from "./AddProduct.module.css"
+
 
 const CreateProduct = () => {
   const dispatch = useDispatch();
