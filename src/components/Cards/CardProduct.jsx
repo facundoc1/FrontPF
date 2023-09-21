@@ -30,6 +30,4 @@ function CardProduct({ product }) {
   );
 }
 
-
 export default CardProduct;
-
