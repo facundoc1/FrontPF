@@ -1,11 +1,17 @@
 export const LOGOUT = 'LOGOUT';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 
-export const loginSuccess = (user, accessToken, refreshToken) => ({
-    type: 'LOGIN_SUCCESS',
-    payload: { user, accessToken, refreshToken },
-  });
-  
+export const loginSuccess = (userData) => {
+  const isAuthenticated = true;
+
+  return {
+    type: LOGIN_SUCCESS,
+    payload: {
+      userData,
+      isAuthenticated,
+    },
+  };
+};
   export const logout = () => ({
     type: 'LOGOUT',
   });

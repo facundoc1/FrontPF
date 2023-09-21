@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { createProduct } from '../../Redux/actions/actions_create_product';
 import style from "./AddProduct.module.css"
-
 
 const CreateProduct = () => {
   const dispatch = useDispatch();
@@ -11,69 +10,122 @@ const CreateProduct = () => {
     summary: '',
     price: 0,
     stock: 0,
-    image: null,
-    externalImageLink: '',
-    categoryIds: [],
-    subcategoryIds: [],
+    images: [], 
+    categoryIds: '',
+    subcategoryIds: '',
   });
 
-  const user = useSelector((state) => state.login.user);
+  const userProfile = useSelector((state) => state.profile.userData);
 
   const loading = useSelector((state) => state.createProduct.loading);
   const error = useSelector((state) => state.createProduct.error);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // Verifica si hay un token
+        const token = localStorage.getItem('accessToken');
+        if (!token) {
+          console.error('No hay un token válido, las validaciones no se ejecutarán');
+          return;
+        }
+
+        if (userProfile && userProfile.isSeller) {
+          // Continuar con el flujo, puedes poner aquí tu lógica para crear productos
+          console.log('El usuario es un vendedor, puedes continuar');
+        } else {
+          console.error('El usuario no tiene permiso para publicar productos');
+        }
+      } catch (error) {
+        console.error('Error al obtener el perfil del usuario:', error);
+      }
+    };
+
+    fetchData(); // Llama a la función fetchData para realizar las operaciones
+  }, [dispatch, userProfile]);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setProductData({
-      ...productData,
-      [name]: value,
-    });
+  
+    if (name === 'images') {
+      const imagesArray = value.split(',').map((url) => url.trim());
+      setProductData({
+        ...productData,
+        [name]: imagesArray,
+      });
+    } else {
+      setProductData({
+        ...productData,
+        [name]: value,
+      });
+    }
   };
-
-  const handleImageChange = (e) => {
-    const imageFile = e.target.files[0];
-    setProductData({
-      ...productData,
-      image: imageFile,
-    });
-  };
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (user && user.isSeller) {
-      const formData = new FormData();
-      formData.append('title', productData.title);
-      formData.append('summary', productData.summary);
-      formData.append('price', productData.price);
-      formData.append('stock', productData.stock);
-      formData.append('image', productData.image);
+    if (userProfile && userProfile.isSeller) {
+      const token = localStorage.getItem('accessToken');
+      const headers = {
+        Authorization: `Bearer ${token}`,
+      };
 
-      
-      dispatch(createProduct(formData));
+      try {
+  
+        console.log('productData:', productData);
+        console.log('productData.images:', productData.images);
+        
+        if (productData.images.length === 0) {
+          console.error('Debes seleccionar al menos una imagen.');
+          return;
+        }
+
+        const formData = new FormData();
+        productData.images.forEach((image, index) => {
+          formData.append(`image${index}`, image);
+        });
+        formData.append('title', productData.title);
+        formData.append('summary', productData.summary);
+        formData.append('price', productData.price);
+        formData.append('stock', productData.stock);
+        formData.append('categoryIds', productData.categoryIds);
+        formData.append('subcategoryIds', productData.subcategoryIds);
+
+        await dispatch(createProduct(formData, headers));
+
+        setProductData({
+          title: '',
+          summary: '',
+          price: 0,
+          stock: 0,
+          images: [],
+          categoryIds: '',
+          subcategoryIds: '',
+        });
+      } catch (error) {
+        console.error('Error al crear el producto:', error);
+      }
     } else {
-      console.error('The user does not have permission to post products');
+      console.error('El usuario no tiene permiso para publicar productos');
     }
   };
 
+
   return (
-    <div className={style.master}>
-      <div className={style.container}>
-      <h2>Create new product post</h2>
+    <div>
+      <h2>Crear nueva publicación de producto</h2>
       {error && <p>Error: {error.message}</p>}
       <form onSubmit={handleSubmit}>
         <div>
-          <label>Title:</label>
+          <label>Título:</label>
           <input type="text" name="title" value={productData.title} onChange={handleChange} required />
         </div>
         <div>
-          <label>Description:</label>
+          <label>Descripción:</label>
           <textarea name="summary" value={productData.summary} onChange={handleChange} required />
         </div>
         <div>
-          <label>Price:</label>
-
+          <label>Precio:</label>
           <input type="number" name="price" value={productData.price} onChange={handleChange} required />
         </div>
         <div>
@@ -81,22 +133,36 @@ const CreateProduct = () => {
           <input type="number" name="stock" value={productData.stock} onChange={handleChange} required />
         </div>
         <div>
-        <label>Product image:</label>
-        <input type="file" accept="image/*" onChange={handleImageChange} />
+        <label>Imágenes (URLs separadas por comas):</label>
+        <input
+            type="text"
+            name="images"
+            value={productData.images}
+            onChange={handleChange}
+            required
+            />
         </div>
-       <div>
-       <label>Category ID:</label>
-       <input type="text" name="categoryIds" value={productData.categoryIds} onChange={handleChange} />
-       </div>
-       <div>
-       <label>Subcategory ID:</label>
-       <input type="text" name="subcategoryIds" value={productData.subcategoryIds} onChange={handleChange} />
-       </div>
-        <button type="submit" disabled={loading}>Create Product</button>
+        <div>
+          <label>Categoría ID (separados por comas):</label>
+          <input
+            type="text"
+            name="categoryIds"
+            value={productData.categoryIds}
+            onChange={handleChange}
+          />
+        </div>
+        <div>
+          <label>Subcategoría ID (separados por comas):</label>
+          <input
+            type="text"
+            name="subcategoryIds"
+            value={productData.subcategoryIds}
+            onChange={handleChange}
+          />
+        </div>
+        <button type="submit" disabled={loading}>Crear Producto</button>
       </form>
     </div>
-  </div>
-
   );
 };
 
