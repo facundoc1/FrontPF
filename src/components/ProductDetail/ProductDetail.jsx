@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
+
 import { axiosGetProductDetail } from '../../Redux/actions/actions';
 import { handleActiveProduct } from '../../Redux/actions/actions_softDelete';
 import { getUserProfileFromToken } from '../../Redux/actions/actions_auth';
@@ -8,6 +9,10 @@ import { addToTempCart } from '../../Redux/actions/actions_temp_cart'; // Import
 
 
 import Review from './Reviews/Reviews';
+
+import { axiosGetProductDetail } from '../../Redux/actions/actions'; 
+import Review from './Reviews/Reviews'
+
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -61,9 +66,12 @@ const ProductDetail = () => {
   return (
     <div className="product-detail">
       {loading ? (
-        <p>Cargando...</p>
+
+        <p>Loading...</p>
+
       ) : product ? (
         <div>
+
           {product.active ? (
             <div>
               <h2>{product.title}</h2>
@@ -123,3 +131,41 @@ const ProductDetail = () => {
 );
     }
 export default ProductDetail;
+
+          <h2>{product.title}</h2>
+          <p>{product.summary}</p>
+
+          <p>Price: ${product.price}</p>
+          <p>Available stock: {product.stock} unidades</p>
+          <p>Creation date: {new Date(product.createdAt).toLocaleDateString()}</p>
+          <p>Update date: {new Date(product.updatedAt).toLocaleDateString()}</p>
+          <p>User ID: {product.userId}</p>
+
+          <h3>Categories:</h3>
+          <ul>
+            {product.Categories.map((category) => (
+              <li key={category.id}>{category.name}</li>
+            ))}
+          </ul>
+
+          <h3>Subcategories:</h3>
+
+          <ul>
+            {product.Subcategories.map((subcategory) => (
+              <li key={subcategory.id}>{subcategory.name}</li>
+            ))}
+          </ul>
+          <Review />
+        </div>
+      ) : (
+
+        <p>Product not found.</p>
+
+      )}
+    </div>
+  );
+};
+
+export default ProductDetail;
+
+

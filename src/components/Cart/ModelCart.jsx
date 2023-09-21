@@ -59,9 +59,15 @@ const ModelCart = ({ items, onClose }) => {
 
     localStorage.setItem('cartTemp', JSON.stringify(updatedCart));
   };
+
   
 
   if (!tempCartItems || tempCartItems.length === 0) {
+
+
+
+  if (!cartItems || cartItems.length === 0) {
+
     return (
       <div>
         No items in the cart.
@@ -88,6 +94,7 @@ const ModelCart = ({ items, onClose }) => {
               </div>
             </li>
           ))}
+
         </ul>
         <div className={style.buttonsCart}>
         <Link to="/payment">
@@ -96,6 +103,25 @@ const ModelCart = ({ items, onClose }) => {
         </div>
         <button className={style.close} onClick={closeModal}>Close</button> 
         <button onClick={handleClearCart}>Clear Cart</button> 
+
+          <div className={style.products}>
+            Product: {name},
+            {image},
+            Price: ${price},
+            Quantity: {quantity},
+            <button onClick={increaseQuantity}>+</button><br />
+            <button onClick={decreaseQuantity}>-</button>
+            <hr />
+            <p>Total Price: ${totalPrice}</p>
+
+            <button id="delete-button">Eliminar</button>
+          </div>
+        </ul>
+        <div className={style.buttonsCart}>
+          <button className={style.buy}>Buy</button>
+        </div>
+        <button className={style.close} onClick={closeModal}>Close</button>
+
       </div>
     </div>
   );

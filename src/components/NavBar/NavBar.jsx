@@ -46,6 +46,7 @@ const NavBar = ({ onSearch, loginError }) => {
 
   return (
     <div className={style.nav}>
+
       <div className={style.logo}>
         <Link to="/" style={{ font: '28px Poppins, sans-serif' }}>
           GRTECH
@@ -60,6 +61,16 @@ const NavBar = ({ onSearch, loginError }) => {
         <SearchBar onSearch={onSearch} />
       </div>
       <div className={style.button}>
+
+        <div className={style.logo}>
+            <Link to='/' style={{ font: '28px Poppins, sans-serif' }}>GRTECH</Link>
+        </div>
+   
+    <div className={style.searchBar}>
+            <SearchBar onSearch={onSearch} />
+    </div>
+    <div className={style.button}>
+
         <button className={style.AddProduct}>
           <Link to="/addProduct">Add Product</Link>
         </button>

@@ -50,6 +50,7 @@ const Review = () => {
         <div>
           <h3>Reseñas de los usuarios:</h3>
           <ul>
+
             {reviews
               .filter((review) => review.active) // Filtrar reseñas activas
               .map((review) => (
@@ -65,6 +66,14 @@ const Review = () => {
                   )}
                 </li>
               ))}
+
+            {reviews.map((review) => (
+              <li key={review.id}>
+                <p>Comentario: {review.comment}</p>
+                <p>Calificación: {review.rating}</p>
+              </li>
+            ))}
+
           </ul>
           <h3>Deja tu reseña:</h3>
           <textarea

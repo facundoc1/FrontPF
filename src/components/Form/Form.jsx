@@ -14,6 +14,7 @@ function RegistrationForm() {
     lastName: '',
     birthdate: null,
     password: '',
+    confirmPassword: '',
     addressData: {
       addressLine1: '',
       addressLine2: '',
@@ -419,6 +420,8 @@ function RegistrationForm() {
         </div>
       </div>
     </div>
+            <br></br>
+
   </div>
 );
 }

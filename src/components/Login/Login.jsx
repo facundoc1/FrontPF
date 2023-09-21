@@ -1,20 +1,19 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Link, useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux'; 
-import { loginSuccess } from '../../Redux/actions/actions_login'; 
-import { setAccessToken, setRefreshToken } from '../../Redux/actions/actions_auth';  
+import { useDispatch } from 'react-redux'; // Importa useDispatch para despachar acciones
+import { loginSuccess } from '../../Redux/actions/actions_login'; // Importa la acción loginUser
 import style from './Login.module.css';
 
 function Login() {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
-    rememberMe: false,
+    rememberMe: false, // Agrega rememberMe al estado
   });
 
   const history = useHistory();
-  const dispatch = useDispatch(); 
+  const dispatch = useDispatch(); // Obtiene la función dispatch
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -33,13 +32,9 @@ function Login() {
       if (response.status === 200) {
         const userData = response.data;
         dispatch(loginSuccess(userData));
-
-        setAccessToken(userData.accessToken);
-        setRefreshToken(userData.refreshToken);
-        console.log(localStorage);
-        
         history.push('/');
       } else {
+        // Manejar otros casos, como errores de inicio de sesión
       }
     } catch (error) {
       console.error('Error al iniciar sesión localmente:', error);
@@ -94,7 +89,9 @@ function Login() {
                 checked={formData.rememberMe}
                 onChange={(e) => setFormData({ ...formData, rememberMe: e.target.checked })}
               />
-              <label htmlFor="rememberMe">Recordarme</label>
+
+              <label htmlFor="rememberMe">Remember me</label>
+
             </div>
             <div>
               <button className={style.Sign} type="submit">Sign in</button>
@@ -105,7 +102,9 @@ function Login() {
             <h3>If you don't have an account yet</h3>
           </div>
           <div>
-            <button className={style.SignUp}><Link to="/Registro">Sign up</Link></button>
+
+            <button className={style.SignUp}><Link to="/register">Sign up</Link></button>
+
           </div>
         </div>
       </div>
