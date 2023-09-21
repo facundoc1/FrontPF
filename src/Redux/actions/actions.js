@@ -7,7 +7,6 @@ export const FILTER_PRODUCTS = 'FILTER_PRODUCTS';
 export const SET_CATEGORIES = 'SET_CATEGORIES';
 export const SET_FILTER_CATEGORY = 'SET_FILTER_CATEGORY';
 export const SET_FILTER_SUBCATEGORY = 'SET_FILTER_SUBCATEGORY';
-export const SET_FILTERED_PRODUCTS = 'SET_FILTERED_PRODUCTS';
 export const GET_PRODUCT_DETAILS_REQUEST = 'GET_PRODUCT_DETAILS_REQUEST';
 export const GET_PRODUCT_DETAILS_SUCCESS = 'GET_PRODUCT_DETAILS_SUCCESS';
 export const GET_PRODUCT_DETAILS_FAILURE = 'GET_PRODUCT_DETAILS_FAILURE';
@@ -40,10 +39,11 @@ export const SET_AUTHENTICATED_USER = 'SET_AUTHENTICATED_USER';
     };
   }
 
-  export function filterProducts(filter) {
+  export function filterProducts(filteredProducts) {
+    console.log('filterProducts', filteredProducts)
     return {
       type: FILTER_PRODUCTS,
-      payload: { filter },
+      payload: { filteredProducts },
     };
   }
 
@@ -51,6 +51,7 @@ export const SET_AUTHENTICATED_USER = 'SET_AUTHENTICATED_USER';
     type: SET_CATEGORIES,
     categories,
   });
+
   
   export const axiosCategories = () => {
     return async (dispatch) => {
@@ -86,7 +87,7 @@ export const SET_AUTHENTICATED_USER = 'SET_AUTHENTICATED_USER';
   };
   
   export const setFilterCategory = (categoryId) => {
-    console.log('setFilterCategory:', categoryId); // Agrega este console.log
+    console.log('setFilterCategory:', categoryId); 
     return {
       type: 'SET_FILTER_CATEGORY',
       payload: categoryId,
@@ -94,19 +95,13 @@ export const SET_AUTHENTICATED_USER = 'SET_AUTHENTICATED_USER';
   };
 
   export const setFilterSubcategory = (subcategoryId) => {
-    console.log('setFilterSubcategory:', subcategoryId); // Agrega este console.log
+    console.log('setFilterSubcategory:', subcategoryId); 
     return {
       type: 'SET_FILTER_SUBCATEGORY',
       payload: subcategoryId,
     };
   };
 
-  export const setFilteredProducts = (filteredProducts) => {
-    return {
-      type: 'SET_FILTERED_PRODUCTS',
-      payload: filteredProducts,
-    };
-  };
   
   export function getProductDetailsRequest() {
     return { type: GET_PRODUCT_DETAILS_REQUEST };

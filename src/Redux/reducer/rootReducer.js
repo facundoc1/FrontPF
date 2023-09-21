@@ -7,6 +7,9 @@ import productReducer from './product_reducer';
 import registerReducer from './register_reducer';
 import loginReducer from './login_reducer';
 import createProductReducer from './create_product_reducer'
+import reviewReducer from './review_reducer'
+import authReducer from './auth_reducer'
+import profileReducer from './profile_reducer'
 
 
 const rootReducer = combineReducers({
@@ -15,7 +18,10 @@ const rootReducer = combineReducers({
   products: productReducer,
   register: registerReducer,
   login: loginReducer,
-  createProduct: createProductReducer
+  createProduct: createProductReducer,
+  review: reviewReducer,
+  authorization: authReducer,
+  profile: profileReducer
 });
 
 export default rootReducer;
