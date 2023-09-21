@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { createProduct } from '../../Redux/actions/actions_create_product';
 import { getUserProfile } from '../../Redux/actions/actions_profile';
 import axios from 'axios';
+import style from "./AddProduct.module.css"
+
 
 const CreateProduct = () => {
   const dispatch = useDispatch();

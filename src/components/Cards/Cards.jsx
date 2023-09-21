@@ -7,13 +7,14 @@ function ProductList() {
   const allProducts = useSelector((state) => state.products.products);
   const filteredProducts = useSelector((state) => state.products.filteredProducts);
 
+  const activeProducts = filteredProducts.filter((product) => product.active === true);
 
-  const hasFilteredProducts = filteredProducts.length > 0;
+  const hasFilteredProducts = activeProducts.length > 0;
 
   return (
     <div className={styles.productList}>
       {hasFilteredProducts ? (
-        filteredProducts.map((product) => (
+        activeProducts.map((product) => (
           <CardProduct key={product.id} product={product} />
         ))
       ) : (
@@ -24,4 +25,5 @@ function ProductList() {
 }
 
 export default ProductList;
+
 

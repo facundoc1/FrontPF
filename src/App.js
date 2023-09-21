@@ -25,6 +25,7 @@ import { setAccessToken, setRefreshToken, getAccessToken, getRefreshToken, verif
 
 
 function App() {
+  console.log(localStorage)
   const dispatch = useDispatch();
   const [sessionExpired, setSessionExpired] = useState(false);
   const isAuthenticated = useSelector((state) => state.login.isAuthenticated);
