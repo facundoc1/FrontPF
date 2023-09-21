@@ -1,18 +1,21 @@
 .master,
 .master .container {
     background: #CCCCCC;
+
     background-repeat: no-repeat;
     background-size: cover;
     min-height: 100vh; /* Cambiado a min-height */
   }
   
   .container {
+
     background-color: #CCCCCC;
     border-radius: 10px;
     position: relative;
     overflow: hidden;
     max-width: 100%; /* Cambiado a max-width */
     margin: 20px auto; 
+
   }
 .Sign{
     border-radius: 20px;

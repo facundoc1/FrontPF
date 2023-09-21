@@ -1,0 +1,87 @@
+import axios from "axios";
+import jwt_decode from 'jwt-decode';
+
+export const RENEW_TOKEN_REQUEST = 'RENEW_TOKEN_REQUEST';
+export const RENEW_TOKEN_SUCCESS = 'RENEW_TOKEN_SUCCESS';
+export const RENEW_TOKEN_FAILURE = 'RENEW_TOKEN_FAILURE';
+
+export const renewTokenRequest = () => ({
+  type: RENEW_TOKEN_REQUEST,
+});
+
+export const renewTokenSuccess = (accessToken) => ({
+  type: RENEW_TOKEN_SUCCESS,
+  accessToken,
+});
+
+export const renewTokenFailure = (error) => ({
+  type: RENEW_TOKEN_FAILURE,
+  error,
+});
+
+export const renewToken = (refreshToken) => async (dispatch) => {
+  dispatch(renewTokenRequest());
+  try {
+    const response = await axios.post('/renew-token', { refreshToken });
+    const newAccessToken = response.data.newAccessToken;
+  
+    dispatch(renewTokenSuccess(newAccessToken));
+    setAccessToken(newAccessToken);
+  } catch (error) {
+    dispatch(renewTokenFailure(error));
+  }
+};
+
+
+export const setAccessToken = (token) => {
+  localStorage.setItem('accessToken', token);
+};
+
+export const getAccessToken = () => {
+  return localStorage.getItem('accessToken');
+};
+
+export const setRefreshToken = (token) => {
+    localStorage.setItem('refreshToken', token);
+  };
+  
+  export const getRefreshToken = () => {
+    return localStorage.getItem('refreshToken');
+  };
+  
+   export const getUserIdFromToken = () => {
+    const token = localStorage.getItem('accessToken');
+    if (token) {
+      const decodedToken = jwt_decode(token); 
+      return decodedToken.userId;
+    }
+    return null; 
+  };
+
+   export const getAuthHeaders = () => {
+    const token = localStorage.getItem('accessToken');
+  
+    if (token) {
+      return {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      };
+    }
+  
+    return {};
+  };
+
+  export const verificarTokenEnRuta = () => async () => {
+    try {
+      console.log('sí verificó')
+      const response = await axios.post('/verify-token', null, { headers: getAuthHeaders() });
+
+      console.log('Token verificado con éxito', response.data);
+      return response.data;
+      
+    } catch (error) {
+      console.error('Error al verificar el token:', error);
+      
+      throw error;
+    }
+  };

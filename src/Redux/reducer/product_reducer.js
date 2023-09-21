@@ -1,4 +1,4 @@
-import { ADD_PRODUCT, REMOVE_PRODUCT, FILTER_PRODUCTS, PRODUCTS_REQUEST, PRODUCTS_SUCCESS, PRODUCTS_FAILURE, SET_FILTERED_PRODUCTS } from '../actions/actions';
+import { ADD_PRODUCT, REMOVE_PRODUCT, FILTER_PRODUCTS, PRODUCTS_REQUEST, PRODUCTS_SUCCESS, PRODUCTS_FAILURE } from '../actions/actions';
 
 const initialState = {
   products: [],
@@ -17,15 +17,13 @@ function productReducer(state = initialState, action) {
         ...state,
         products: state.products.filter(product => product.id !== action.payload.productId),
       };
-    case FILTER_PRODUCTS:
-      const { filter } = action.payload;
-      const filteredProducts = state.products.filter(product => {
-        return product.name.includes(filter);
-      });
+      case FILTER_PRODUCTS:
+       const { filteredProducts } = action.payload;
       return {
-        ...state,
-        filteredProducts,
-      };
+     ...state,
+     filteredProducts,
+         };
+
     case PRODUCTS_REQUEST:
       return {
         ...state,
@@ -44,11 +42,6 @@ function productReducer(state = initialState, action) {
         loading: false,
         products: [],
         error: action.payload,
-      };
-      case SET_FILTERED_PRODUCTS:
-      return {
-        ...state,
-        filteredProducts: action.filteredProducts,
       };
 
     default:

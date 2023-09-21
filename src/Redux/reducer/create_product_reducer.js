@@ -2,7 +2,8 @@ import {
   CREATE_PRODUCT_REQUEST,
   CREATE_PRODUCT_SUCCESS,
   CREATE_PRODUCT_FAILURE,
-} from '../types/types';
+} from '../actions/actions_create_product'; 
+
 
 const initialState = {
   product: null,
