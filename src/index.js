@@ -7,7 +7,7 @@ import axios from 'axios';
 import { Provider } from 'react-redux'; 
 import store from './Redux/store/store'; 
 
-axios.defaults.baseURL = 'http://localhost:3001';
+axios.defaults.baseURL = 'https://grtech.onrender.com/';
 
 
 ReactDOM.render(
